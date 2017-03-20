@@ -1,0 +1,22 @@
+{
+  "name": "array-join",
+  "version": "1.0.0",
+  "description": "Join arrays by common key or with custom matching function.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iredchuk/array-join"
+  },
+  "main": "index.js",
+  "author": {
+    "name": "Igor Redchuk",
+    "email": "redchuk@gmail.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "ava"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "^0.18.2"
+  }
+}
