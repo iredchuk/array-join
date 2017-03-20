@@ -1,6 +1,8 @@
 # array-join
 Join arrays by common key or with custom matching function.
 
+[![build status](https://img.shields.io/travis/iredchuk/array-join/master.svg?style=flat-square)](https://travis-ci.org/iredchuk/array-join)
+
 ## join(array1, array2, options)
 ### with common key:
 ~~~js
