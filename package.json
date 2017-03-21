@@ -1,6 +1,6 @@
 {
   "name": "array-join",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Join arrays by common key or with custom matching function.",
   "repository": {
     "type": "git",
@@ -11,7 +11,16 @@
     "name": "Igor Redchuk",
     "email": "redchuk@gmail.com"
   },
+  "keywords": [
+    "array",
+    "join",
+    "arrays",
+    "util"
+  ],
   "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "scripts": {
     "test": "ava"
   },
