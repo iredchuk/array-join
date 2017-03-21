@@ -191,3 +191,25 @@ test('when both arrays are empty, return empty array', t => {
 
   t.deepEqual(actual, []);
 });
+
+test('when first array is empty, return empty array', t => {
+  const array = [
+    { id: 1 },
+    { id: 2 }
+  ];
+
+  const actual = join([], array, { key: 'id' });
+
+  t.deepEqual(actual, []);
+});
+
+test('when second array is empty, return empty array', t => {
+  const array = [
+    { id: 1 },
+    { id: 2 }
+  ];
+
+  const actual = join(array, [], { key: 'id' });
+
+  t.deepEqual(actual, []);
+});
