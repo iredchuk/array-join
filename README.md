@@ -67,3 +67,31 @@ join([
 	{ a: 1000, b: 4, p: 4000, text: 'cool' }
 ]
 ~~~
+
+## leftJoin(array1, array2, options)
+~~~js
+const { leftJoin } = require('array-join');
+
+leftJoin([
+		{ id: 1, name: 'apple' },
+		{ id: 2, name: 'banana' },
+		{ id: 3, name: 'orange' },
+		{ id: 4, name: 'apricot' }
+	],
+	[
+		{ id: 1, color: 'red' },
+		{ id: 2, color: 'yellow' }
+		{ id: 5, color: 'blue' }
+	],
+	{ key: 'id' });
+
+// result:
+[
+	{ id: 1, name: 'apple', color: 'red' },
+	{ id: 2, name: 'banana', color: 'yellow' },
+	// leftJoin adds all items from the left array,
+	// no matter if they match or not:
+	{ id: 3, name: 'orange' },
+	{ id: 4, name: 'apricot' }
+]
+~~~
