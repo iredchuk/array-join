@@ -13,6 +13,6 @@ function validate({ key, key1, key2, match }) {
 	return {
 		matchItems: (a, b) => a[k1] === b[k2] && a[k1] !== undefined
 	};
-};
+}
 
 module.exports = validate;

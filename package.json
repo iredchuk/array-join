@@ -22,10 +22,17 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "test": "ava"
+    "test": "xo && ava"
+  },
+  "xo": {
+    "rules": {
+      "object-curly-spacing": ["error", "always"],
+      "operator-linebreak": ["error", "before"]
+    }
   },
   "dependencies": {},
   "devDependencies": {
-    "ava": "^0.18.2"
+    "ava": "^0.18.2",
+    "xo": "^0.18.0"
   }
 }
