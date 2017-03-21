@@ -1,6 +1,6 @@
 {
   "name": "array-join",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Join arrays by common key or with custom matching function.",
   "repository": {
     "type": "git",
@@ -26,8 +26,14 @@
   },
   "xo": {
     "rules": {
-      "object-curly-spacing": ["error", "always"],
-      "operator-linebreak": ["error", "before"]
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "operator-linebreak": [
+        "error",
+        "before"
+      ]
     }
   },
   "dependencies": {},
