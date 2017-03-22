@@ -236,3 +236,30 @@ test('join two arrays with key prefixes', t => {
 
 	t.deepEqual(actual, expected);
 });
+
+test('join two arrays with key prefixes and custom matching function', t => {
+	const array1 = [
+		{ id: 1, str: 'left 1' },
+		{ id: 2, str: 'left 2' },
+		{ id: 3, str: 'left 3' }
+	];
+
+	const array2 = [
+		{ id: 12, str: 'right 2' },
+		{ id: 13, str: 'right 3' },
+		{ id: 14, str: 'right 4' }
+	];
+
+	const actual = join(array1, array2, {
+		match: (a1, a2) => a2.id - a1.id === 10,
+		prefix1: 'l',
+		prefix2: 'r'
+	});
+
+	const expected = [
+		{ lid: 2, lstr: 'left 2', rid: 12, rstr: 'right 2' },
+		{ lid: 3, lstr: 'left 3', rid: 13, rstr: 'right 3' }
+	];
+
+	t.deepEqual(actual, expected);
+});
