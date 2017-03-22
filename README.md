@@ -68,6 +68,27 @@ join([
 ]
 ~~~
 
+### object keys can be prefixed to avoid possible collisions:
+~~~js
+join([
+		{ id: 1, name: 'apple' },
+		{ id: 2, name: 'banana' },
+		{ id: 3, name: 'orange' }
+	],
+	[
+		{ id: 2, name: 'Venus' },
+		{ id: 3, name: 'Mars' },
+		{ id: 4, name: 'Jupiter' }
+	],
+	{ key1: 'id', key2: 'num', prefix1: 'left_', prefix2: 'right_' });
+
+// result:
+[
+	{ left_id: 2, right_id: 2, left_name: 'banana', right_name: 'Venus' },
+	{ left_id: 3, right_id: 2, left_name: 'orange', right_name: 'Mars' }
+]
+~~~
+
 ## leftJoin(array1, array2, options)
 ~~~js
 const { leftJoin } = require('array-join');
@@ -95,3 +116,5 @@ leftJoin([
 	{ id: 4, name: 'apricot' }
 ]
 ~~~
+
+### All options applicable to `join` work also for `leftJoin`.

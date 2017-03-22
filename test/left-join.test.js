@@ -10,7 +10,8 @@ test('join two arrays with the same key', t => {
 
 	const array2 = [
 		{ id: 2, bool: true },
-		{ id: 3, bool: false }
+		{ id: 3, bool: false },
+		{ id: 4, bool: undefined }
 	];
 
 	const actual = leftJoin(array1, array2, { key: 'id' });
@@ -225,6 +226,30 @@ test('when second array is empty, return first array', t => {
 	const expected = [
 		{ id: 1 },
 		{ id: 2 }
+	];
+
+	t.deepEqual(actual, expected);
+});
+
+test('join two arrays with key prefixes', t => {
+	const array1 = [
+		{ id: 1, str: 'left 1' },
+		{ id: 2, str: 'left 2' },
+		{ id: 3, str: 'left 3' }
+	];
+
+	const array2 = [
+		{ id: 2, str: 'right 2' },
+		{ id: 3, str: 'right 3' },
+		{ id: 4, str: 'right 4' }
+	];
+
+	const actual = leftJoin(array1, array2, { key: 'id', prefix1: 'l', prefix2: 'r' });
+
+	const expected = [
+		{ lid: 1, lstr: 'left 1' },
+		{ lid: 2, lstr: 'left 2', rid: 2, rstr: 'right 2' },
+		{ lid: 3, lstr: 'left 3', rid: 3, rstr: 'right 3' }
 	];
 
 	t.deepEqual(actual, expected);
