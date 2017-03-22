@@ -1,4 +1,4 @@
-const validateOptions = require('./validate-options');
+const options = require('./options');
 const prefixKeys = require('./prefix-keys');
 
 function leftJoin(array1, array2, { key, key1, key2, match, prefix1, prefix2 } = {}) {
@@ -10,7 +10,7 @@ function leftJoin(array1, array2, { key, key1, key2, match, prefix1, prefix2 } =
 		return array1.map(a => a);
 	}
 
-	const { matchItems } = validateOptions({ key, key1, key2, match });
+	const matchItems = options.getMatchFunction({ key, key1, key2, match });
 
 	if (typeof matchItems !== 'function') {
 		return [];
