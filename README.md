@@ -1,14 +1,25 @@
 # array-join
-Join arrays by common key or with custom matching function.
+Join arrays by common key or with custom matching function, similarly to how SQL JOIN and LEFT JOIN work.
 
 [![build status](https://img.shields.io/travis/iredchuk/array-join/master.svg?style=flat-square)](https://travis-ci.org/iredchuk/array-join)
 
-## join(array1, array2, options)
-### with common key:
-~~~js
-const { join } = require('array-join');
+## Installation
+```console
+$ npm install array-join
+```
+or
+```console
+$ yarn add array-join
+```
 
-join([
+## Usage
+
+### join(array1, array2, options)
+> with common key:
+```js
+const join = require('array-join').join;
+
+const result = join([
     { id: 1, name: 'apple' },
     { id: 2, name: 'banana' },
     { id: 3, name: 'orange' }
@@ -20,16 +31,19 @@ join([
   ],
   { key: 'id' });
 
-// result:
+console.log(result);
+
+/*
 [
   { id: 1, name: 'apple', color: 'red' },
   { id: 2, name: 'banana', color: 'yellow' }
 ]
-~~~
+*/
+```
 
-### with different matching keys:
-~~~js
-join([
+> with different matching keys:
+```js
+const result = join([
     { id: 1, name: 'apple' },
     { id: 2, name: 'banana' },
     { id: 3, name: 'orange' }
@@ -41,36 +55,46 @@ join([
   ],
   { key1: 'id', key2: 'num' });
 
-// result:
+console.log(result);
+
+/*
 [
   { id: 1, name: 'apple', color: 'red' },
   { id: 2, name: 'banana', color: 'yellow' }
 ]
-~~~
+*/
+```
 
-### with custom matching function:
-~~~js
-join([
-    { a: 10, b: 2 },
-    { a: 100, b: 3 },
-    { a: 1000, b: 4 }
+> with custom matching function:
+```js
+const result = join([
+    { id: '100', name: 'one },
+    { id: '200', name: 'two' },
+    { id: '300', name: 'three' }
   ],
   [
-    { p: 20, text: 'wow' },
-    { p: 4000, text: 'cool' }
+    { index: 1 },
+    { index: 2 },
+    { index: 3 }
   ],
-  { match: (x, y) => x.a * x.b === y.p });
+  {
+    match: (left, right) => Number(left.id) === 100 * right.index
+  });
 
-// result:
+console.log(result);
+
+/*
 [
-  { a: 10, b: 2, p: 20, text: 'wow' },
-  { a: 1000, b: 4, p: 4000, text: 'cool' }
+  { id: '100', name: 'one', index: 1 },
+  { id: '200', name: 'two', index: 2 },
+  { id: '300', name: 'three', index: 3 }
 ]
-~~~
+*/
+```
 
-### object keys can be prefixed to avoid possible collisions:
-~~~js
-join([
+> object keys can be prefixed to avoid possible collisions:
+```js
+const result = join([
     { id: 1, name: 'apple' },
     { id: 2, name: 'banana' },
     { id: 3, name: 'orange' }
@@ -80,20 +104,23 @@ join([
     { id: 3, name: 'Mars' },
     { id: 4, name: 'Jupiter' }
   ],
-  { key1: 'id', key2: 'num', prefix1: 'left_', prefix2: 'right_' });
+  { key: 'id', prefix1: 'l_', prefix2: 'r_' });
 
-// result:
+console.log(result);
+
+/*
 [
-  { left_id: 2, right_id: 2, left_name: 'banana', right_name: 'Venus' },
-  { left_id: 3, right_id: 2, left_name: 'orange', right_name: 'Mars' }
+  { l_id: 2, r_id: 2, l_name: 'banana', r_name: 'Venus' },
+  { l_id: 3, r_id: 2, l_name: 'orange', r_name: 'Mars' }
 ]
-~~~
+*/
+```
 
-## leftJoin(array1, array2, options)
-~~~js
-const { leftJoin } = require('array-join');
+### leftJoin(array1, array2, options)
+```js
+const leftJoin = require('array-join').leftJoin;
 
-leftJoin([
+const result = leftJoin([
     { id: 1, name: 'apple' },
     { id: 2, name: 'banana' },
     { id: 3, name: 'orange' },
@@ -106,7 +133,9 @@ leftJoin([
   ],
   { key: 'id' });
 
-// result:
+console.log(result);
+
+/*
 [
   { id: 1, name: 'apple', color: 'red' },
   { id: 2, name: 'banana', color: 'yellow' },
@@ -115,6 +144,7 @@ leftJoin([
   { id: 3, name: 'orange' },
   { id: 4, name: 'apricot' }
 ]
-~~~
+*/
+```
 
-### All options applicable to `join` work also for `leftJoin`.
+> All options applicable to `join` work also for `leftJoin`.
