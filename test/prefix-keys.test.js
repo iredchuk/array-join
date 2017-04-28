@@ -1,5 +1,5 @@
 import test from 'ava';
-import prefixKeys from '../prefix-keys';
+import prefixKeys from '../src/prefix-keys';
 
 test('when object has keys and prefix is non-empty, return object with prefixed first-level keys', t => {
 	const actual = prefixKeys({

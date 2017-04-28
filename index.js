@@ -1,4 +1,4 @@
 module.exports = {
-	join: require('./join'),
-	leftJoin: require('./left-join')
+	join: require('./src/join'),
+	leftJoin: require('./src/left-join')
 };

@@ -1,5 +1,5 @@
 import test from 'ava';
-import join from '../join';
+import join from '../src/join';
 
 test('join two arrays with the same key', t => {
 	const array1 = [
