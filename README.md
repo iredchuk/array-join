@@ -1,5 +1,5 @@
 # array-join
-Join arrays by common key or with custom matching function, similarly to how SQL JOIN and LEFT JOIN work.
+Join arrays by common object key or with a custom match function, similarly to how SQL JOIN and LEFT JOIN work.
 
 [![build status](https://img.shields.io/travis/iredchuk/array-join/master.svg?style=flat-square)](https://travis-ci.org/iredchuk/array-join)
 
@@ -41,7 +41,7 @@ console.log(result);
 */
 ```
 
-> with different matching keys:
+> with different join keys:
 ```js
 const result = join([
     { id: 1, name: 'apple' },
@@ -65,10 +65,10 @@ console.log(result);
 */
 ```
 
-> with custom matching function:
+> with a custom match function:
 ```js
 const result = join([
-    { id: '100', name: 'one },
+    { id: '100', name: 'one' },
     { id: '200', name: 'two' },
     { id: '300', name: 'three' }
   ],
