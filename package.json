@@ -22,7 +22,9 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "test": "xo && ava"
+    "pretest": "xo",
+    "test": "ava",
+    "lint": "xo"
   },
   "xo": {
     "rules": {
@@ -38,7 +40,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "ava": "^0.18.2",
-    "xo": "^0.18.0"
+    "ava": "^0.19.1",
+    "xo": "^0.18.2"
   }
 }
