@@ -1,7 +1,7 @@
 const options = require('./options');
 const mapObjectKeys = require('./map-object-keys');
 
-function join(array1, array2, {key, key1, key2, match, prefix1, prefix2} = {}) {
+function join(array1, array2, {key, key1, key2, match, propMap1, propMap2} = {}) {
 	if (!Array.isArray(array1) || !Array.isArray(array2)) {
 		return [];
 	}
@@ -17,8 +17,8 @@ function join(array1, array2, {key, key1, key2, match, prefix1, prefix2} = {}) {
 		return matches.length === 0 ?
 			prev :
 			prev.concat(matches.map(m => Object.assign({},
-				mapObjectKeys(m, prefix2 ? key => prefix2 + key : undefined),
-				mapObjectKeys(cur, prefix1 ? key => prefix1 + key : undefined))));
+				mapObjectKeys(m, propMap2),
+				mapObjectKeys(cur, propMap1))));
 	}, []);
 }
 

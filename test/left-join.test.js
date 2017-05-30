@@ -231,7 +231,7 @@ test('when second array is empty, return first array', t => {
 	t.deepEqual(actual, expected);
 });
 
-test('join two arrays with key prefixes', t => {
+test('join two arrays with property mappers', t => {
 	const array1 = [
 		{id: 1, str: 'left 1'},
 		{id: 2, str: 'left 2'},
@@ -244,7 +244,7 @@ test('join two arrays with key prefixes', t => {
 		{id: 4, str: 'right 4'}
 	];
 
-	const actual = leftJoin(array1, array2, {key: 'id', prefix1: 'l', prefix2: 'r'});
+	const actual = leftJoin(array1, array2, {key: 'id', propMap1: p => 'l' + p, propMap2: p => 'r' + p});
 
 	const expected = [
 		{lid: 1, lstr: 'left 1'},
@@ -255,7 +255,7 @@ test('join two arrays with key prefixes', t => {
 	t.deepEqual(actual, expected);
 });
 
-test('join two arrays with key prefixes and custom matching function', t => {
+test('join two arrays with property mappers and custom matching function', t => {
 	const array1 = [
 		{id: 1, str: 'left 1'},
 		{id: 2, str: 'left 2'},
@@ -270,8 +270,8 @@ test('join two arrays with key prefixes and custom matching function', t => {
 
 	const actual = leftJoin(array1, array2, {
 		match: (a1, a2) => a2.id - a1.id === 10,
-		prefix1: 'l',
-		prefix2: 'r'
+		propMap1: p => 'l' + p,
+		propMap2: p => 'r' + p
 	});
 
 	const expected = [

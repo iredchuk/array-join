@@ -15,7 +15,21 @@ $ yarn add array-join
 ## Usage
 
 ### join(array1, array2, options)
-> with common key:
+### leftJoin(array1, array2, options)
+```js
+options = {
+  key1,  // key property in the array1 objects to join objects on
+  key2,  // key property in the array2 objects to join objects on
+  key,  // common join key (when key1 is the same as key2)
+  propMap1,  // function to rename properties of the array1 objects
+  propMap2,  // function to rename properties of the array2 objects
+  match  // custom match function to join objects in arrays
+};
+```
+
+### Examples
+
+> join objects on the common key property:
 ```js
 const join = require('array-join').join;
 
@@ -41,7 +55,7 @@ console.log(result);
 */
 ```
 
-> with different join keys:
+> join objects on different key properties:
 ```js
 const result = join([
     { id: 1, name: 'apple' },
@@ -65,7 +79,31 @@ console.log(result);
 */
 ```
 
-> with a custom match function:
+> object properties can be renamed to avoid possible collisions:
+```js
+const result = join([
+    { id: 1, name: 'apple' },
+    { id: 2, name: 'banana' },
+    { id: 3, name: 'orange' }
+  ],
+  [
+    { id: 2, name: 'Venus' },
+    { id: 3, name: 'Mars' },
+    { id: 4, name: 'Jupiter' }
+  ],
+  { key: 'id', propMap1: p => 'l_' + p, propMap2: p => 'r_' + p });
+
+console.log(result);
+
+/*
+[
+  { l_id: 2, r_id: 2, l_name: 'banana', r_name: 'Venus' },
+  { l_id: 3, r_id: 2, l_name: 'orange', r_name: 'Mars' }
+]
+*/
+```
+
+> join objects with a custom match function:
 ```js
 const result = join([
     { id: '100', name: 'one' },
@@ -92,31 +130,7 @@ console.log(result);
 */
 ```
 
-> object keys can be prefixed to avoid possible collisions:
-```js
-const result = join([
-    { id: 1, name: 'apple' },
-    { id: 2, name: 'banana' },
-    { id: 3, name: 'orange' }
-  ],
-  [
-    { id: 2, name: 'Venus' },
-    { id: 3, name: 'Mars' },
-    { id: 4, name: 'Jupiter' }
-  ],
-  { key: 'id', prefix1: 'l_', prefix2: 'r_' });
-
-console.log(result);
-
-/*
-[
-  { l_id: 2, r_id: 2, l_name: 'banana', r_name: 'Venus' },
-  { l_id: 3, r_id: 2, l_name: 'orange', r_name: 'Mars' }
-]
-*/
-```
-
-### leftJoin(array1, array2, options)
+> left-join adds all items from the left array to the result (even if they don't match):
 ```js
 const leftJoin = require('array-join').leftJoin;
 
@@ -139,12 +153,8 @@ console.log(result);
 [
   { id: 1, name: 'apple', color: 'red' },
   { id: 2, name: 'banana', color: 'yellow' },
-  // leftJoin adds all items from the left array,
-  // no matter if they match or not:
   { id: 3, name: 'orange' },
   { id: 4, name: 'apricot' }
 ]
 */
 ```
-
-> All options applicable to `join` work also for `leftJoin`.
