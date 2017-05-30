@@ -1,4 +1,4 @@
-function getMatchFunction({ key, key1, key2, match }) {
+function getMatchFunction({key, key1, key2, match}) {
 	if (typeof match === 'function') {
 		return match;
 	}
@@ -13,4 +13,6 @@ function getMatchFunction({ key, key1, key2, match }) {
 	return (a, b) => a[k1] === b[k2] && a[k1] !== undefined;
 }
 
-module.exports = { getMatchFunction };
+module.exports = {
+	getMatchFunction
+};

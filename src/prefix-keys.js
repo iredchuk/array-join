@@ -9,7 +9,7 @@ function prefixKeys(obj, prefix) {
 		return obj;
 	}
 
-	return keys.reduce((result, key) => Object.assign(result, { [prefix + key]: obj[key] }), {});
+	return keys.reduce((result, key) => Object.assign(result, {[prefix + key]: obj[key]}), {});
 }
 
 module.exports = prefixKeys;

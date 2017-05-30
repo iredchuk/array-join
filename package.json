@@ -26,18 +26,6 @@
     "test": "ava",
     "lint": "xo"
   },
-  "xo": {
-    "rules": {
-      "object-curly-spacing": [
-        "error",
-        "always"
-      ],
-      "operator-linebreak": [
-        "error",
-        "before"
-      ]
-    }
-  },
   "dependencies": {},
   "devDependencies": {
     "ava": "^0.19.1",

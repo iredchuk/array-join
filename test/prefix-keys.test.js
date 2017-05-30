@@ -20,8 +20,8 @@ test('when object has keys and prefix is non-empty, return object with prefixed 
 });
 
 test('when object has keys and prefix is empty, return same object', t => {
-	const actual = prefixKeys({ id: 1 }, '');
-	t.deepEqual(actual, { id: 1 });
+	const actual = prefixKeys({id: 1}, '');
+	t.deepEqual(actual, {id: 1});
 });
 
 test('when object is undefined, return undefined', t => {
