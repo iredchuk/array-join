@@ -1,7 +1,7 @@
 {
   "name": "array-join",
   "version": "1.1.0",
-  "description": "Join arrays by common key or with custom matching function.",
+  "description": "Join (SQL-like) arrays of objects by a common key or with a custom match function.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/iredchuk/array-join"
@@ -13,8 +13,9 @@
   },
   "keywords": [
     "array",
-    "join",
     "arrays",
+    "join",
+    "left-join",
     "util"
   ],
   "license": "MIT",
