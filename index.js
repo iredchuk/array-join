@@ -1,4 +1,7 @@
-module.exports = {
-	join: require('./src/join'),
-	leftJoin: require('./src/left-join')
+import join from './src/join';
+import leftJoin from './src/left-join';
+
+export default {
+	join,
+	leftJoin
 };
