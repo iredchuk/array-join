@@ -6,7 +6,8 @@
     "type": "git",
     "url": "git+https://github.com/iredchuk/array-join"
   },
-  "main": "index.js",
+  "main": "dist/bundle.js",
+  "module": "index.js",
   "author": {
     "name": "Igor Redchuk",
     "email": "redchuk@gmail.com"
@@ -25,12 +26,14 @@
   "scripts": {
     "pretest": "xo",
     "test": "ava",
-    "lint": "xo"
+    "lint": "xo",
+    "build": "rollup index.js --format umd --name 'ArrayJoin' --output ./dist/bundle.js"
   },
   "dependencies": {},
   "devDependencies": {
     "ava": "^0.19.1",
     "babel-preset-es2015": "^6.24.1",
+    "rollup": "^0.41.6",
     "xo": "^0.18.2"
   },
   "ava": {
