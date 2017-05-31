@@ -1,5 +1,5 @@
-const options = require('./options');
-const mapObjectKeys = require('./map-object-keys');
+import options from './options';
+import mapObjectKeys from './map-object-keys';
 
 function join(array1, array2, {key, key1, key2, match, propMap1, propMap2} = {}) {
 	if (!Array.isArray(array1) || !Array.isArray(array2)) {
@@ -22,4 +22,4 @@ function join(array1, array2, {key, key1, key2, match, propMap1, propMap2} = {})
 	}, []);
 }
 
-module.exports = join;
+export default join;

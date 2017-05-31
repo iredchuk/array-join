@@ -14,4 +14,4 @@ function mapObjectKeys(obj, mapper) {
 		{});
 }
 
-module.exports = mapObjectKeys;
+export default mapObjectKeys;
