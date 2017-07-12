@@ -27,7 +27,8 @@
     "pretest": "xo",
     "test": "ava",
     "lint": "xo",
-    "build": "rollup index.js --format umd --name 'ArrayJoin' --output ./dist/bundle.js"
+    "build": "rollup index.js --format umd --name 'ArrayJoin' --output ./dist/bundle.js",
+    "prepublish": "npm run build"
   },
   "dependencies": {},
   "devDependencies": {
