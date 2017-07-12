@@ -1,7 +1,9 @@
-import test from 'ava'
+import test from 'tape'
 import leftJoin from '../src/left-join'
 
 test('join two arrays with the same key', t => {
+  t.plan(1)
+
   const array1 = [
     { id: 1, str: 'one' },
     { id: 2, str: 'two' },
@@ -26,6 +28,8 @@ test('join two arrays with the same key', t => {
 })
 
 test('join two arrays with different keys', t => {
+  t.plan(1)
+
   const array1 = [
     { id: 1, str: 'one' },
     { id: 2, str: 'two' },
@@ -49,6 +53,8 @@ test('join two arrays with different keys', t => {
 })
 
 test('join two arrays with compare function', t => {
+  t.plan(1)
+
   const array1 = [
     { x: 1, y: 2, str: '0 (mod 3)' },
     { x: 3, y: 1, str: '1 (mod 3)' },
@@ -74,6 +80,8 @@ test('join two arrays with compare function', t => {
 })
 
 test('join two arrays when keys are not unique', t => {
+  t.plan(1)
+
   const array1 = [
     { key: true, str: 'True 1' },
     { key: false, str: 'False 1' },
@@ -100,6 +108,8 @@ test('join two arrays when keys are not unique', t => {
 })
 
 test('join two arrays when some keys are missing', t => {
+  t.plan(1)
+
   const array1 = [
     { id: 1, str: 'one' },
     { id: 2, str: 'two' },
@@ -124,6 +134,8 @@ test('join two arrays when some keys are missing', t => {
 })
 
 test('when some properties are the same, assign values from the first array', t => {
+  t.plan(1)
+
   const array1 = [
     { id: 1, str: 'ONE' },
     { id: 2, str: 'TWO' },
@@ -148,6 +160,8 @@ test('when some properties are the same, assign values from the first array', t 
 })
 
 test('when all keys are set, specific keys have preference', t => {
+  t.plan(1)
+
   const array1 = [
     { id: 1, n: 200 },
     { id: 2, n: 300 },
@@ -172,6 +186,8 @@ test('when all keys are set, specific keys have preference', t => {
 })
 
 test('when first array is not an Array, return empty array', t => {
+  t.plan(1)
+
   const array = [
     { id: 1 },
     { id: 2 }
@@ -183,6 +199,8 @@ test('when first array is not an Array, return empty array', t => {
 })
 
 test('when second array is not an Array, return first array', t => {
+  t.plan(1)
+
   const array = [
     { id: 1 },
     { id: 2 }
@@ -199,12 +217,16 @@ test('when second array is not an Array, return first array', t => {
 })
 
 test('when both arrays are empty, return empty array', t => {
+  t.plan(1)
+
   const actual = leftJoin([], [], { key: 'id' })
 
   t.deepEqual(actual, [])
 })
 
 test('when first array is empty, return empty array', t => {
+  t.plan(1)
+
   const array = [
     { id: 1 },
     { id: 2 }
@@ -216,6 +238,8 @@ test('when first array is empty, return empty array', t => {
 })
 
 test('when second array is empty, return first array', t => {
+  t.plan(1)
+
   const array = [
     { id: 1 },
     { id: 2 }
@@ -232,6 +256,8 @@ test('when second array is empty, return first array', t => {
 })
 
 test('join two arrays with property mappers', t => {
+  t.plan(1)
+
   const array1 = [
     { id: 1, str: 'left 1' },
     { id: 2, str: 'left 2' },
@@ -256,6 +282,8 @@ test('join two arrays with property mappers', t => {
 })
 
 test('join two arrays with property mappers and custom matching function', t => {
+  t.plan(1)
+
   const array1 = [
     { id: 1, str: 'left 1' },
     { id: 2, str: 'left 2' },
