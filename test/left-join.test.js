@@ -1,5 +1,5 @@
-import test from 'tape'
-import leftJoin from '../src/left-join'
+const test = require('tape')
+const leftJoin = require('../dist/bundle').leftJoin
 
 test('join two arrays with the same key', t => {
   t.plan(1)

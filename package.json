@@ -24,8 +24,8 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "pretest": "npm run lint",
-    "test": "tape -r babel-register test/**/*.test.js | faucet",
+    "pretest": "npm run lint && npm run build",
+    "test": "tape test/**/*.test.js | faucet",
     "lint": "standard",
     "build": "rollup -c",
     "prepublish": "npm run build"

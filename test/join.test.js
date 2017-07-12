@@ -1,5 +1,5 @@
-import test from 'tape'
-import join from '../src/join'
+const test = require('tape')
+const join = require('../dist/bundle').join
 
 test('join two arrays with the same key', t => {
   t.plan(1)
