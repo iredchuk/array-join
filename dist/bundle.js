@@ -4,90 +4,154 @@
 	(global.ArrayJoin = factory());
 }(this, (function () { 'use strict';
 
-function getMatchFunction ({key, key1, key2, match}) {
+function getMatchFunction(_ref) {
+  var key = _ref.key,
+      key1 = _ref.key1,
+      key2 = _ref.key2,
+      match = _ref.match;
+
   if (typeof match === 'function') {
-    return match
+    return match;
   }
 
-  const k1 = key1 || key;
-  const k2 = key2 || key;
+  var k1 = key1 || key;
+  var k2 = key2 || key;
 
   if (!k1 || !k2) {
-    return undefined
+    return undefined;
   }
 
-  return (a, b) => a[k1] === b[k2] && a[k1] !== undefined
+  return function (a, b) {
+    return a[k1] === b[k2] && a[k1] !== undefined;
+  };
 }
 
 var options = {
-  getMatchFunction
+  getMatchFunction: getMatchFunction
 };
 
-function mapObjectKeys (obj, mapper) {
-  if (!obj || typeof obj !== 'object' || typeof mapper !== 'function') {
-    return obj
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var defineProperty = function (obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
   }
 
-  const keys = Object.keys(obj);
+  return obj;
+};
+
+function mapObjectKeys(obj, mapper) {
+  if (!obj || (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) !== 'object' || typeof mapper !== 'function') {
+    return obj;
+  }
+
+  var keys = Object.keys(obj);
 
   if (keys.length === 0) {
-    return obj
+    return obj;
   }
 
-  return keys.reduce((result, key) =>
-		Object.assign(result, {[mapper(key)]: obj[key]}),
-		{})
+  return keys.reduce(function (result, key) {
+    return Object.assign(result, defineProperty({}, mapper(key), obj[key]));
+  }, {});
 }
 
-function join (array1, array2, {key, key1, key2, match, propMap1, propMap2} = {}) {
+function join(array1, array2) {
+  var _ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
+      key = _ref.key,
+      key1 = _ref.key1,
+      key2 = _ref.key2,
+      match = _ref.match,
+      propMap1 = _ref.propMap1,
+      propMap2 = _ref.propMap2;
+
   if (!Array.isArray(array1) || !Array.isArray(array2)) {
-    return []
+    return [];
   }
 
-  const matchItems = options.getMatchFunction({key, key1, key2, match});
+  var matchItems = options.getMatchFunction({ key: key, key1: key1, key2: key2, match: match });
 
   if (typeof matchItems !== 'function') {
-    return []
+    return [];
   }
 
-  return array1.reduce((prev, cur) => {
-    const matches = array2.filter(a2 => matchItems(cur, a2));
-    return matches.length === 0
-			? prev
-			: prev.concat(matches.map(m => Object.assign({},
-				mapObjectKeys(m, propMap2),
-				mapObjectKeys(cur, propMap1))))
-  }, [])
+  return array1.reduce(function (prev, cur) {
+    var matches = array2.filter(function (a2) {
+      return matchItems(cur, a2);
+    });
+    return matches.length === 0 ? prev : prev.concat(matches.map(function (m) {
+      return Object.assign({}, mapObjectKeys(m, propMap2), mapObjectKeys(cur, propMap1));
+    }));
+  }, []);
 }
 
-function leftJoin (array1, array2, {key, key1, key2, match, propMap1, propMap2} = {}) {
+function leftJoin(array1, array2) {
+  var _ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
+      key = _ref.key,
+      key1 = _ref.key1,
+      key2 = _ref.key2,
+      match = _ref.match,
+      propMap1 = _ref.propMap1,
+      propMap2 = _ref.propMap2;
+
   if (!Array.isArray(array1)) {
-    return []
+    return [];
   }
 
   if (!Array.isArray(array2)) {
-    return array1.map(a => a)
+    return array1.map(function (a) {
+      return a;
+    });
   }
 
-  const matchItems = options.getMatchFunction({key, key1, key2, match});
+  var matchItems = options.getMatchFunction({ key: key, key1: key1, key2: key2, match: match });
 
   if (typeof matchItems !== 'function') {
-    return []
+    return [];
   }
 
-  return array1.reduce((prev, cur) => {
-    const matches = array2.filter(a2 => matchItems(cur, a2));
-    return matches.length === 0
-			? prev.concat(mapObjectKeys(cur, propMap1))
-			: prev.concat(matches.map(m => Object.assign({},
-				mapObjectKeys(m, propMap2),
-				mapObjectKeys(cur, propMap1))))
-  }, [])
+  return array1.reduce(function (prev, cur) {
+    var matches = array2.filter(function (a2) {
+      return matchItems(cur, a2);
+    });
+    return matches.length === 0 ? prev.concat(mapObjectKeys(cur, propMap1)) : prev.concat(matches.map(function (m) {
+      return Object.assign({}, mapObjectKeys(m, propMap2), mapObjectKeys(cur, propMap1));
+    }));
+  }, []);
 }
 
 var index = {
-  join,
-  leftJoin
+  join: join,
+  leftJoin: leftJoin
 };
 
 return index;
