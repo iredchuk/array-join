@@ -30,44 +30,9 @@ var options = {
   getMatchFunction: getMatchFunction
 };
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-  return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var defineProperty = function (obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-};
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function mapObjectKeys(obj, mapper) {
   if (!obj || (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) !== 'object' || typeof mapper !== 'function') {
@@ -81,7 +46,7 @@ function mapObjectKeys(obj, mapper) {
   }
 
   return keys.reduce(function (result, key) {
-    return Object.assign(result, defineProperty({}, mapper(key), obj[key]));
+    return Object.assign(result, _defineProperty({}, mapper(key), obj[key]));
   }, {});
 }
 
