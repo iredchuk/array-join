@@ -32,8 +32,6 @@ var options = {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function mapObjectKeys(obj, mapper) {
   if (!obj || (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) !== 'object' || typeof mapper !== 'function') {
     return obj;
@@ -46,7 +44,9 @@ function mapObjectKeys(obj, mapper) {
   }
 
   return keys.reduce(function (result, key) {
-    return Object.assign(result, _defineProperty({}, mapper(key), obj[key]));
+    var _Object$assign;
+
+    return Object.assign(result, (_Object$assign = {}, _Object$assign[mapper(key)] = obj[key], _Object$assign));
   }, {});
 }
 

@@ -2,10 +2,11 @@
   "presets": [
     ["env", {
       "targets": {
-        "browsers": ["> 3%"],
+        "browsers": ["> 2%"],
         "node": "6.0"
       },
-      "modules": false
+      "modules": false,
+      "loose": true
     }]
   ]
 }
