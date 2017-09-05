@@ -1,9 +1,11 @@
 import babel from 'rollup-plugin-babel'
 
 export default {
-  entry: 'index.js',
-  dest: 'dist/bundle.js',
-  format: 'umd',
-  moduleName: 'ArrayJoin',
+  input: 'index.js',
+  output: {
+    file: 'dist/bundle.js',
+    format: 'umd'
+  },
+  name: 'ArrayJoin',
   plugins: [babel()]
 }
