@@ -1,5 +1,5 @@
 # array-join
-Join arrays of objects by a common key or with a custom match function, similarly to how SQL JOIN and LEFT JOIN work.
+Join arrays of objects by a common key or with a custom match function, similarly to how SQL JOIN, LEFT JOIN and FULL JOIN work.
 
 [![build status](https://img.shields.io/travis/iredchuk/array-join/master.svg?style=flat-square)](https://travis-ci.org/iredchuk/array-join)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
@@ -17,6 +17,7 @@ $ yarn add array-join
 
 ### join(array1, array2, options)
 ### leftJoin(array1, array2, options)
+### fullJoin(array1, array2, options)
 ```js
 options = {
   key1,  // key property in the array1 objects to join objects on
@@ -131,7 +132,7 @@ console.log(result);
 */
 ```
 
-> left-join adds all items from the left array to the result (even if they don't match):
+> leftJoin adds all items from the left array to the result (even if they don't match):
 ```js
 const leftJoin = require('array-join').leftJoin;
 
@@ -156,6 +157,34 @@ console.log(result);
   { id: 2, name: 'banana', color: 'yellow' },
   { id: 3, name: 'orange' },
   { id: 4, name: 'apricot' }
+]
+*/
+```
+
+> fullJoin adds all items from both arrays to the result, merging only ones that match:
+```js
+const fullJoin = require('array-join').fullJoin;
+
+const result = fullJoin([
+    { id: 1, name: 'apple' },
+    { id: 2, name: 'banana' },
+    { id: 3, name: 'orange' }
+  ],
+  [
+    { id: 1, color: 'red' },
+    { id: 2, color: 'yellow' },
+    { id: 4, color: 'blue' }
+  ],
+  { key: 'id' });
+
+console.log(result);
+
+/*
+[
+  { id: 1, name: 'apple', color: 'red' },
+  { id: 2, name: 'banana', color: 'yellow' },
+  { id: 3, name: 'orange' },
+  { id: 4, color: 'blue' }
 ]
 */
 ```

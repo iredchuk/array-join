@@ -1,7 +1,7 @@
 const test = require('tape')
 const leftJoin = require('../dist/bundle').leftJoin
 
-test('join two arrays with the same key', t => {
+test('left join two arrays with the same key', t => {
   t.plan(1)
 
   const array1 = [
@@ -27,7 +27,7 @@ test('join two arrays with the same key', t => {
   t.deepEqual(actual, expected)
 })
 
-test('join two arrays with different keys', t => {
+test('left join two arrays with different keys', t => {
   t.plan(1)
 
   const array1 = [
@@ -52,7 +52,7 @@ test('join two arrays with different keys', t => {
   t.deepEqual(actual, expected)
 })
 
-test('join two arrays with compare function', t => {
+test('left join two arrays with compare function', t => {
   t.plan(1)
 
   const array1 = [
@@ -79,7 +79,7 @@ test('join two arrays with compare function', t => {
   t.deepEqual(actual, expected)
 })
 
-test('join two arrays when keys are not unique', t => {
+test('left join two arrays when keys are not unique', t => {
   t.plan(1)
 
   const array1 = [
@@ -107,7 +107,7 @@ test('join two arrays when keys are not unique', t => {
   t.deepEqual(actual, expected)
 })
 
-test('join two arrays when some keys are missing', t => {
+test('left join two arrays when some keys are missing', t => {
   t.plan(1)
 
   const array1 = [
@@ -133,7 +133,7 @@ test('join two arrays when some keys are missing', t => {
   t.deepEqual(actual, expected)
 })
 
-test('when some properties are the same, assign values from the first array', t => {
+test('left join: when some properties are the same, assign values from the first array', t => {
   t.plan(1)
 
   const array1 = [
@@ -159,7 +159,7 @@ test('when some properties are the same, assign values from the first array', t 
   t.deepEqual(actual, expected)
 })
 
-test('when all keys are set, specific keys have preference', t => {
+test('left join: when all keys are set, specific keys have preference', t => {
   t.plan(1)
 
   const array1 = [
@@ -185,7 +185,7 @@ test('when all keys are set, specific keys have preference', t => {
   t.deepEqual(actual, expected)
 })
 
-test('when first array is not an Array, return empty array', t => {
+test('left join: when first array is not an Array, return empty array', t => {
   t.plan(1)
 
   const array = [
@@ -198,7 +198,7 @@ test('when first array is not an Array, return empty array', t => {
   t.deepEqual(actual, [])
 })
 
-test('when second array is not an Array, return first array', t => {
+test('left join: when second array is not an Array, return first array', t => {
   t.plan(1)
 
   const array = [
@@ -216,7 +216,7 @@ test('when second array is not an Array, return first array', t => {
   t.deepEqual(actual, expected)
 })
 
-test('when both arrays are empty, return empty array', t => {
+test('left join: when both arrays are empty, return empty array', t => {
   t.plan(1)
 
   const actual = leftJoin([], [], { key: 'id' })
@@ -224,7 +224,7 @@ test('when both arrays are empty, return empty array', t => {
   t.deepEqual(actual, [])
 })
 
-test('when first array is empty, return empty array', t => {
+test('left join: when first array is empty, return empty array', t => {
   t.plan(1)
 
   const array = [
@@ -237,7 +237,7 @@ test('when first array is empty, return empty array', t => {
   t.deepEqual(actual, [])
 })
 
-test('when second array is empty, return first array', t => {
+test('left join: when second array is empty, return first array', t => {
   t.plan(1)
 
   const array = [
@@ -255,7 +255,7 @@ test('when second array is empty, return first array', t => {
   t.deepEqual(actual, expected)
 })
 
-test('join two arrays with property mappers', t => {
+test('left join two arrays with property mappers', t => {
   t.plan(1)
 
   const array1 = [
@@ -281,7 +281,7 @@ test('join two arrays with property mappers', t => {
   t.deepEqual(actual, expected)
 })
 
-test('join two arrays with property mappers and custom matching function', t => {
+test('left join two arrays with property mappers and custom matching function', t => {
   t.plan(1)
 
   const array1 = [

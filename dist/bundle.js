@@ -114,9 +114,60 @@ function leftJoin(array1, array2) {
   }, []);
 }
 
+function fullJoin(array1, array2) {
+  var _ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
+      key = _ref.key,
+      key1 = _ref.key1,
+      key2 = _ref.key2,
+      match = _ref.match,
+      propMap1 = _ref.propMap1,
+      propMap2 = _ref.propMap2;
+
+  if (!Array.isArray(array1)) {
+    return [];
+  }
+
+  if (!Array.isArray(array2)) {
+    return array1.map(function (a) {
+      return a;
+    });
+  }
+
+  var matchItems = options.getMatchFunction({ key: key, key1: key1, key2: key2, match: match });
+
+  if (typeof matchItems !== 'function') {
+    return [];
+  }
+
+  var matchedIndices2 = [];
+
+  var leftJoin = array1.reduce(function (prev, cur) {
+    var matches = array2.filter(function (a2, index) {
+      var isMatch = matchItems(cur, a2);
+      if (isMatch) {
+        matchedIndices2.push(index);
+      }
+      return isMatch;
+    });
+
+    return matches.length === 0 ? prev.concat(mapObjectKeys(cur, propMap1)) : prev.concat(matches.map(function (m) {
+      return Object.assign({}, mapObjectKeys(m, propMap2), mapObjectKeys(cur, propMap1));
+    }));
+  }, []);
+
+  var unmatchedItemsFrom2 = array2.filter(function (a2, index) {
+    return !matchedIndices2.includes(index);
+  }).map(function (a2) {
+    return mapObjectKeys(a2, propMap2);
+  });
+
+  return leftJoin.concat(unmatchedItemsFrom2);
+}
+
 var index = {
   join: join,
-  leftJoin: leftJoin
+  leftJoin: leftJoin,
+  fullJoin: fullJoin
 };
 
 return index;
