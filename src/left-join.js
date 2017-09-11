@@ -1,5 +1,5 @@
-import options from './options'
-import mapObjectKeys from './map-object-keys'
+const options = require('./options')
+const mapObjectKeys = require('./map-object-keys')
 
 function leftJoin (array1, array2, { key, key1, key2, match, propMap1, propMap2 } = {}) {
   if (!Array.isArray(array1)) {
@@ -26,4 +26,4 @@ function leftJoin (array1, array2, { key, key1, key2, match, propMap1, propMap2 
   }, [])
 }
 
-export default leftJoin
+module.exports = leftJoin

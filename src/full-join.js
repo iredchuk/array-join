@@ -1,5 +1,5 @@
-import options from './options'
-import mapObjectKeys from './map-object-keys'
+const options = require('./options')
+const mapObjectKeys = require('./map-object-keys')
 
 function fullJoin (array1, array2, { key, key1, key2, match, propMap1, propMap2 } = {}) {
   if (!Array.isArray(array1)) {
@@ -41,4 +41,4 @@ function fullJoin (array1, array2, { key, key1, key2, match, propMap1, propMap2 
   return leftJoin.concat(unmatchedItemsFrom2)
 }
 
-export default fullJoin
+module.exports = fullJoin

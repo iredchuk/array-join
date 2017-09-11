@@ -1,9 +1,6 @@
-const test = require('tape')
-const leftJoin = require('../dist/bundle').leftJoin
+const leftJoin = require('../src/index').leftJoin
 
-test('left join two arrays with the same key', t => {
-  t.plan(1)
-
+test('left join two arrays with the same key', () => {
   const array1 = [
     { id: 1, str: 'one' },
     { id: 2, str: 'two' },
@@ -24,12 +21,10 @@ test('left join two arrays with the same key', t => {
     { id: 3, str: 'three', bool: false }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('left join two arrays with different keys', t => {
-  t.plan(1)
-
+test('left join two arrays with different keys', () => {
   const array1 = [
     { id: 1, str: 'one' },
     { id: 2, str: 'two' },
@@ -49,12 +44,10 @@ test('left join two arrays with different keys', t => {
     { id: 3, key: 3, str: 'three', bool: false }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('left join two arrays with compare function', t => {
-  t.plan(1)
-
+test('left join two arrays with compare function', () => {
   const array1 = [
     { x: 1, y: 2, str: '0 (mod 3)' },
     { x: 3, y: 1, str: '1 (mod 3)' },
@@ -76,12 +69,10 @@ test('left join two arrays with compare function', t => {
     { x: 2, y: 6, str: '2 (mod 3)' }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('left join two arrays when keys are not unique', t => {
-  t.plan(1)
-
+test('left join two arrays when keys are not unique', () => {
   const array1 = [
     { key: true, str: 'True 1' },
     { key: false, str: 'False 1' },
@@ -104,12 +95,10 @@ test('left join two arrays when keys are not unique', t => {
     { key: true, str: 'True 2', num: 2 }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('left join two arrays when some keys are missing', t => {
-  t.plan(1)
-
+test('left join two arrays when some keys are missing', () => {
   const array1 = [
     { id: 1, str: 'one' },
     { id: 2, str: 'two' },
@@ -130,12 +119,10 @@ test('left join two arrays when some keys are missing', t => {
     { str: 'unknown' }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('left join: when some properties are the same, assign values from the first array', t => {
-  t.plan(1)
-
+test('left join: when some properties are the same, assign values from the first array', () => {
   const array1 = [
     { id: 1, str: 'ONE' },
     { id: 2, str: 'TWO' },
@@ -156,12 +143,10 @@ test('left join: when some properties are the same, assign values from the first
     { id: 3, str: 'THREE' }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('left join: when all keys are set, specific keys have preference', t => {
-  t.plan(1)
-
+test('left join: when all keys are set, specific keys have preference', () => {
   const array1 = [
     { id: 1, n: 200 },
     { id: 2, n: 300 },
@@ -182,12 +167,10 @@ test('left join: when all keys are set, specific keys have preference', t => {
     { id: 3, n: 400 }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('left join: when first array is not an Array, return empty array', t => {
-  t.plan(1)
-
+test('left join: when first array is not an Array, return empty array', () => {
   const array = [
     { id: 1 },
     { id: 2 }
@@ -195,12 +178,10 @@ test('left join: when first array is not an Array, return empty array', t => {
 
   const actual = leftJoin({}, array, { key: 'id' })
 
-  t.deepEqual(actual, [])
+  expect(actual).toEqual([])
 })
 
-test('left join: when second array is not an Array, return first array', t => {
-  t.plan(1)
-
+test('left join: when second array is not an Array, return first array', () => {
   const array = [
     { id: 1 },
     { id: 2 }
@@ -213,20 +194,16 @@ test('left join: when second array is not an Array, return first array', t => {
     { id: 2 }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('left join: when both arrays are empty, return empty array', t => {
-  t.plan(1)
-
+test('left join: when both arrays are empty, return empty array', () => {
   const actual = leftJoin([], [], { key: 'id' })
 
-  t.deepEqual(actual, [])
+  expect(actual).toEqual([])
 })
 
-test('left join: when first array is empty, return empty array', t => {
-  t.plan(1)
-
+test('left join: when first array is empty, return empty array', () => {
   const array = [
     { id: 1 },
     { id: 2 }
@@ -234,12 +211,10 @@ test('left join: when first array is empty, return empty array', t => {
 
   const actual = leftJoin([], array, { key: 'id' })
 
-  t.deepEqual(actual, [])
+  expect(actual).toEqual([])
 })
 
-test('left join: when second array is empty, return first array', t => {
-  t.plan(1)
-
+test('left join: when second array is empty, return first array', () => {
   const array = [
     { id: 1 },
     { id: 2 }
@@ -252,12 +227,10 @@ test('left join: when second array is empty, return first array', t => {
     { id: 2 }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('left join two arrays with property mappers', t => {
-  t.plan(1)
-
+test('left join two arrays with property mappers', () => {
   const array1 = [
     { id: 1, str: 'left 1' },
     { id: 2, str: 'left 2' },
@@ -278,12 +251,10 @@ test('left join two arrays with property mappers', t => {
     { lid: 3, lstr: 'left 3', rid: 3, rstr: 'right 3' }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('left join two arrays with property mappers and custom matching function', t => {
-  t.plan(1)
-
+test('left join two arrays with property mappers and custom matching function', () => {
   const array1 = [
     { id: 1, str: 'left 1' },
     { id: 2, str: 'left 2' },
@@ -308,5 +279,37 @@ test('left join two arrays with property mappers and custom matching function', 
     { lid: 3, lstr: 'left 3', rid: 13, rstr: 'right 3' }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
+})
+
+test('left join when no key is specified returns empty array', () => {
+  const array1 = [
+    { id: 1, str: 'one' },
+    { id: 2, str: 'two' }
+  ]
+
+  const array2 = [
+    { id: 1, bool: true },
+    { id: 2, bool: false }
+  ]
+
+  const actual = leftJoin(array1, array2, { })
+
+  expect(actual).toEqual([])
+})
+
+test('left join when options are not passed returns empty array', () => {
+  const array1 = [
+    { id: 1, str: 'one' },
+    { id: 2, str: 'two' }
+  ]
+
+  const array2 = [
+    { id: 1, bool: true },
+    { id: 2, bool: false }
+  ]
+
+  const actual = leftJoin(array1, array2)
+
+  expect(actual).toEqual([])
 })

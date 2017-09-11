@@ -6,8 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/iredchuk/array-join"
   },
-  "main": "dist/bundle.js",
-  "module": "index.js",
+  "main": "src/index.js",
   "author": {
     "name": "Igor Redchuk",
     "email": "redchuk@gmail.com"
@@ -24,23 +23,33 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "pretest": "npm run lint && npm run build",
-    "test": "tape test/**/*.test.js | faucet",
+    "pretest": "npm run lint",
+    "test": "jest --coverage",
     "lint": "standard",
-    "build": "rollup -c",
-    "prepare": "npm run build"
+    "prepare": "npm test"
   },
   "dependencies": {},
   "devDependencies": {
-    "babel-preset-env": "^1.6.0",
-    "babel-register": "^6.26.0",
-    "faucet": "0.0.1",
-    "rollup": "^0.49.2",
-    "rollup-plugin-babel": "^3.0.2",
-    "standard": "^10.0.3",
-    "tape": "^4.8.0"
+    "jest": "^21.0.2",
+    "standard": "^10.0.3"
   },
   "standard": {
-    "ignore": "dist/**/*.js"
+    "env": {
+      "jest": true
+    }
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
   }
 }

@@ -1,9 +1,6 @@
-const test = require('tape')
-const fullJoin = require('../dist/bundle').fullJoin
+const fullJoin = require('../src/index').fullJoin
 
-test('full join two arrays with the same key', t => {
-  t.plan(1)
-
+test('full join two arrays with the same key', () => {
   const array1 = [
     { id: 1, str: 'one' },
     { id: 2, str: 'two' },
@@ -25,12 +22,10 @@ test('full join two arrays with the same key', t => {
     { id: 4, bool: undefined }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('full join two arrays with different keys', t => {
-  t.plan(1)
-
+test('full join two arrays with different keys', () => {
   const array1 = [
     { id: 1, str: 'one' },
     { id: 2, str: 'two' },
@@ -52,12 +47,10 @@ test('full join two arrays with different keys', t => {
     { key: 4, bool: true }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('full join two arrays with compare function', t => {
-  t.plan(1)
-
+test('full join two arrays with compare function', () => {
   const array1 = [
     { x: 1, y: 2, str: '0 (mod 3)' },
     { x: 3, y: 1, str: '1 (mod 3)' },
@@ -81,12 +74,10 @@ test('full join two arrays with compare function', t => {
     { z: 3, num: 303 }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('full join two arrays when keys are not unique', t => {
-  t.plan(1)
-
+test('full join two arrays when keys are not unique', () => {
   const array1 = [
     { key: true, str: 'True 1' },
     { key: false, str: 'False 1' },
@@ -110,12 +101,10 @@ test('full join two arrays when keys are not unique', t => {
     { key: null, num: 0 }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('full join two arrays when some keys are missing', t => {
-  t.plan(1)
-
+test('full join two arrays when some keys are missing', () => {
   const array1 = [
     { id: 1, str: 'one' },
     { id: 2, str: 'two' },
@@ -137,12 +126,10 @@ test('full join two arrays when some keys are missing', t => {
     { foo: 'bar' }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('full join: when some properties are the same, assign values from the first array', t => {
-  t.plan(1)
-
+test('full join: when some properties are the same, assign values from the first array', () => {
   const array1 = [
     { id: 1, str: 'ONE' },
     { id: 2, str: 'TWO' },
@@ -163,12 +150,10 @@ test('full join: when some properties are the same, assign values from the first
     { id: 3, str: 'THREE' }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('full join: when all keys are set, specific keys have preference', t => {
-  t.plan(1)
-
+test('full join: when all keys are set, specific keys have preference', () => {
   const array1 = [
     { id: 1, n: 200 },
     { id: 2, n: 300 },
@@ -190,12 +175,10 @@ test('full join: when all keys are set, specific keys have preference', t => {
     { id: 2, m: 250 }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('full join: when first array is not an Array, return empty array', t => {
-  t.plan(1)
-
+test('full join: when first array is not an Array, return empty array', () => {
   const array = [
     { id: 1 },
     { id: 2 }
@@ -203,12 +186,10 @@ test('full join: when first array is not an Array, return empty array', t => {
 
   const actual = fullJoin({}, array, { key: 'id' })
 
-  t.deepEqual(actual, [])
+  expect(actual).toEqual([])
 })
 
-test('full join: when second array is not an Array, return first array', t => {
-  t.plan(1)
-
+test('full join: when second array is not an Array, return first array', () => {
   const array = [
     { id: 1 },
     { id: 2 }
@@ -221,20 +202,16 @@ test('full join: when second array is not an Array, return first array', t => {
     { id: 2 }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('full join: when both arrays are empty, return empty array', t => {
-  t.plan(1)
-
+test('full join: when both arrays are empty, return empty array', () => {
   const actual = fullJoin([], [], { key: 'id' })
 
-  t.deepEqual(actual, [])
+  expect(actual).toEqual([])
 })
 
-test('full join: when first array is empty, return second array', t => {
-  t.plan(1)
-
+test('full join: when first array is empty, return second array', () => {
   const array = [
     { id: 1 },
     { id: 2 }
@@ -247,12 +224,10 @@ test('full join: when first array is empty, return second array', t => {
     { id: 2 }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('full join: when second array is empty, return first array', t => {
-  t.plan(1)
-
+test('full join: when second array is empty, return first array', () => {
   const array = [
     { id: 1 },
     { id: 2 }
@@ -265,12 +240,10 @@ test('full join: when second array is empty, return first array', t => {
     { id: 2 }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('full join two arrays with property mappers', t => {
-  t.plan(1)
-
+test('full join two arrays with property mappers', () => {
   const array1 = [
     { id: 1, str: 'left 1' },
     { id: 2, str: 'left 2' },
@@ -292,12 +265,10 @@ test('full join two arrays with property mappers', t => {
     { rid: 4, rstr: 'right 4' }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('full join two arrays with property mappers and custom matching function', t => {
-  t.plan(1)
-
+test('full join two arrays with property mappers and custom matching function', () => {
   const array1 = [
     { id: 1, str: 'left 1' },
     { id: 2, str: 'left 2' },
@@ -323,5 +294,37 @@ test('full join two arrays with property mappers and custom matching function', 
     { rid: 14, rstr: 'right 4' }
   ]
 
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
+})
+
+test('full join when no key is specified returns empty array', () => {
+  const array1 = [
+    { id: 1, str: 'one' },
+    { id: 2, str: 'two' }
+  ]
+
+  const array2 = [
+    { id: 1, bool: true },
+    { id: 2, bool: false }
+  ]
+
+  const actual = fullJoin(array1, array2, { })
+
+  expect(actual).toEqual([])
+})
+
+test('full join when options are not passed returns empty array', () => {
+  const array1 = [
+    { id: 1, str: 'one' },
+    { id: 2, str: 'two' }
+  ]
+
+  const array2 = [
+    { id: 1, bool: true },
+    { id: 2, bool: false }
+  ]
+
+  const actual = fullJoin(array1, array2)
+
+  expect(actual).toEqual([])
 })

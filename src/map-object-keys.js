@@ -3,15 +3,9 @@ function mapObjectKeys (obj, mapper) {
     return obj
   }
 
-  const keys = Object.keys(obj)
-
-  if (keys.length === 0) {
-    return obj
-  }
-
-  return keys.reduce((result, key) =>
+  return Object.keys(obj).reduce((result, key) =>
     Object.assign(result, { [mapper(key)]: obj[key] }),
     {})
 }
 
-export default mapObjectKeys
+module.exports = mapObjectKeys
