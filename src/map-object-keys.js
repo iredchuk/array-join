@@ -5,7 +5,7 @@ function mapObjectKeys (obj, mapper) {
 
   return Object.keys(obj).reduce((result, key) =>
     Object.assign(result, { [mapper(key)]: obj[key] }),
-    {})
+  {})
 }
 
 module.exports = mapObjectKeys
