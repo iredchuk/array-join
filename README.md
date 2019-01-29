@@ -2,7 +2,6 @@
 Join arrays of objects by a common key or with a custom match function, similarly to how SQL JOIN, LEFT JOIN and FULL JOIN work.
 
 [![build status](https://img.shields.io/travis/iredchuk/array-join/master.svg?style=flat-square)](https://travis-ci.org/iredchuk/array-join)
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Installation
 ```console
