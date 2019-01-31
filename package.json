@@ -7,6 +7,7 @@
     "url": "git+https://github.com/iredchuk/array-join"
   },
   "main": "src/index.js",
+  "typings": "src/index.d.ts",
   "author": {
     "name": "Igor Redchuk",
     "email": "redchuk@gmail.com"
@@ -24,7 +25,7 @@
   },
   "scripts": {
     "pretest": "xo",
-    "test": "jest --coverage",
+    "test": "tsd-check && jest --coverage",
     "prepare": "npm test"
   },
   "dependencies": {},
@@ -33,6 +34,7 @@
     "jest": "^24.0.0",
     "lint-staged": "^8.1.1",
     "prettier": "^1.16.1",
+    "tsd-check": "^0.3.0",
     "xo": "^0.24.0"
   },
   "husky": {
