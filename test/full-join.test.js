@@ -1,5 +1,37 @@
 const { fullJoin } = require('../src');
 
+test('use "as" option full join two arrays with the same key', () => {
+  const array1 = [
+    { id: 1, str: 'one' },
+    { id: 2, str: 'two' },
+    { id: 3, str: 'three' }
+  ];
+
+  const array2 = [
+    { id: 2, bool: true },
+    { id: 2, bool: true, test: 1 },
+    { id: 3, bool: false },
+    { id: 4, bool: undefined },
+    { id: 5, test: 2 }
+  ];
+
+  const actual = fullJoin(array1, array2, { key: 'id', as: 'joinData' });
+
+  const expected = [
+    { id: 1, str: 'one', joinData: [] },
+    {
+      id: 2,
+      str: 'two',
+      joinData: [{ id: 2, bool: true }, { id: 2, bool: true, test: 1 }]
+    },
+    { id: 3, str: 'three', joinData: [{ id: 3, bool: false }] },
+    { joinData: [{ id: 4, bool: undefined }] },
+    { joinData: [{ id: 5, test: 2 }] }
+  ];
+
+  expect(actual).toEqual(expected);
+});
+
 test('full join two arrays with the same key', () => {
   const array1 = [
     { id: 1, str: 'one' },

@@ -1,11 +1,8 @@
-const options = require('./options');
+const opt = require('./options');
 const mapObjectKeys = require('./map-object-keys');
 
-function fullJoin(
-  array1,
-  array2,
-  { key, key1, key2, match, propMap1, propMap2 } = {}
-) {
+function fullJoin(array1, array2, options = {}) {
+  const { key, key1, key2, match, propMap1, propMap2 } = options;
   if (!Array.isArray(array1)) {
     return [];
   }
@@ -14,7 +11,7 @@ function fullJoin(
     return array1.map(a => a);
   }
 
-  const matchItems = options.getMatchFunction({ key, key1, key2, match });
+  const matchItems = opt.getMatchFunction({ key, key1, key2, match });
 
   if (typeof matchItems !== 'function') {
     return [];
@@ -31,6 +28,10 @@ function fullJoin(
 
       return isMatch;
     });
+    if (options.as) {
+      cur[options.as] = matches;
+      return prev.concat(cur);
+    }
 
     return matches.length === 0
       ? prev.concat(mapObjectKeys(cur, propMap1))
@@ -44,6 +45,16 @@ function fullJoin(
           )
         );
   }, []);
+
+  if (options.as) {
+    const unmatchedItemsFrom2 = array2
+      .filter((a2, index) => !matchedIndices2.includes(index))
+      .map(a2 => {
+        return { [options.as]: [a2] };
+      });
+
+    return leftJoin.concat(unmatchedItemsFrom2);
+  }
 
   const unmatchedItemsFrom2 = array2
     .filter((a2, index) => !matchedIndices2.includes(index))
