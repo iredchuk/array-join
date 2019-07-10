@@ -9,6 +9,7 @@ test('use "as" option left join two arrays with the same key', () => {
 
   const array2 = [
     { id: 2, bool: true },
+    { id: 2, bool: true, test: 1 },
     { id: 3, bool: false },
     { id: 4, bool: undefined }
   ];
@@ -17,7 +18,11 @@ test('use "as" option left join two arrays with the same key', () => {
 
   const expected = [
     { id: 1, str: 'one', joinData: [] },
-    { id: 2, str: 'two', joinData: [{ id: 2, bool: true }] },
+    {
+      id: 2,
+      str: 'two',
+      joinData: [{ id: 2, bool: true }, { id: 2, bool: true, test: 1 }]
+    },
     { id: 3, str: 'three', joinData: [{ id: 3, bool: false }] }
   ];
 
