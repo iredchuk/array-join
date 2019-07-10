@@ -32,7 +32,8 @@ options = {
   key, // common join key (when key1 is the same as key2)
   propMap1, // function to rename properties of the array1 objects
   propMap2, // function to rename properties of the array2 objects
-  match // custom match function to join objects in arrays
+  match, // custom match function to join objects in arrays
+  as, // specifies the name of the new array field to add to the array1 objects. The new array field contains the matching objects from the array2. If the specified name already exists in the array1 objects, the existing field is overwritten.
 };
 ```
 
@@ -175,6 +176,34 @@ console.log(result);
   { id: 2, name: 'banana', color: 'yellow' },
   { id: 3, name: 'orange' },
   { id: 4, name: 'apricot' }
+]
+*/
+```
+
+> use 'as' options leftJoin adds all items from the left array to the result (even if they don't match):
+
+```js
+const result = leftJoin(
+  [
+    { id: 1, name: 'apple' },
+    { id: 2, name: 'banana' },
+    { id: 3, name: 'orange' },
+  ],
+  [
+    { id: 1, color: 'red' },
+    { id: 1, color: 'red2' },
+    { id: 2, color: 'yellow' },
+  ],
+  { key: 'id', as: 'joinData' }
+);
+
+console.log(result);
+
+/*
+[
+  { "id": 1, "name": "apple", "joinData": [ { "id": 1, "color": "red" }, { "id": 1, "color": "red2" } ] },
+  { "id": 2, "name": "banana", "joinData": [ { "id": 2, "color": "yellow" } ] },
+  { "id": 3, "name": "orange", "joinData": [] }
 ]
 */
 ```
