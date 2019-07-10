@@ -1,5 +1,29 @@
 const { leftJoin } = require('../src');
 
+test('use "as" option left join two arrays with the same key', () => {
+  const array1 = [
+    { id: 1, str: 'one' },
+    { id: 2, str: 'two' },
+    { id: 3, str: 'three' }
+  ];
+
+  const array2 = [
+    { id: 2, bool: true },
+    { id: 3, bool: false },
+    { id: 4, bool: undefined }
+  ];
+
+  const actual = leftJoin(array1, array2, { key: 'id', as: 'joinData' });
+
+  const expected = [
+    { id: 1, str: 'one', joinData: [] },
+    { id: 2, str: 'two', joinData: [{ id: 2, bool: true }] },
+    { id: 3, str: 'three', joinData: [{ id: 3, bool: false }] }
+  ];
+
+  expect(actual).toEqual(expected);
+});
+
 test('left join two arrays with the same key', () => {
   const array1 = [
     { id: 1, str: 'one' },
