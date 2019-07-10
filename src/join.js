@@ -1,16 +1,13 @@
-const options = require('./options');
+const opt = require('./options');
 const mapObjectKeys = require('./map-object-keys');
 
-function join(
-  array1,
-  array2,
-  { key, key1, key2, match, propMap1, propMap2 } = {}
-) {
+function join(array1, array2, options = {}) {
+  const { key, key1, key2, match, propMap1, propMap2 } = options;
   if (!Array.isArray(array1) || !Array.isArray(array2)) {
     return [];
   }
 
-  const matchItems = options.getMatchFunction({ key, key1, key2, match });
+  const matchItems = opt.getMatchFunction({ key, key1, key2, match });
 
   if (typeof matchItems !== 'function') {
     return [];
@@ -18,6 +15,15 @@ function join(
 
   return array1.reduce((prev, cur) => {
     const matches = array2.filter(a2 => matchItems(cur, a2));
+    if (options.as) {
+      if (matches.length === 0) {
+        return prev;
+      }
+
+      cur[options.as] = matches;
+      return prev.concat(cur);
+    }
+
     return matches.length === 0
       ? prev
       : prev.concat(

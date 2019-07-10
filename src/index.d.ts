@@ -7,6 +7,7 @@ export interface Options {
   propMap1?: (prop: string) => string;
   propMap2?: (prop: string) => string;
   match?: MatchFn;
+  as?: string;
 }
 
 export function join(

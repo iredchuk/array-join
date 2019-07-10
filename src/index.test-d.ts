@@ -9,6 +9,8 @@ function testTypes(joinFn: any) {
 
   expectType<object[]>(joinFn(array1, array2, { key: 'a' }));
 
+  expectType<object[]>(joinFn(array1, array2, { key: 'a', as: 'k' }));
+
   expectType<object[]>(joinFn(array1, array2, { key1: 'b', key2: 'c' }));
 
   expectType<object[]>(
