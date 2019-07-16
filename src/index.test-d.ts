@@ -1,4 +1,4 @@
-import { expectType } from 'tsd-check';
+import { expectType } from 'tsd';
 import { join, leftJoin, fullJoin } from '.';
 
 const array1 = [{ a: 1, b: 2 }];
@@ -14,15 +14,15 @@ function testTypes(joinFn: any) {
   expectType<object[]>(
     joinFn(array1, array2, {
       key: 'a',
-      propMap1: s => s + '1',
-      propMap2: s => s + '2'
+      propMap1: (s: string) => s + '1',
+      propMap2: (s: string) => s + '2'
     })
   );
 
   expectType<object[]>(
     joinFn(array1, array2, {
       key: 'a',
-      match: (left, right) => left['a'] === right['a']
+      match: (left: { a: any }, right: { a: any }) => left['a'] === right['a']
     })
   );
 }
