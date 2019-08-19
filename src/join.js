@@ -1,5 +1,5 @@
-const options = require('./options');
-const mapObjectKeys = require('./map-object-keys');
+const options = require("./options");
+const mapObjectKeys = require("./map-object-keys");
 
 function join(
   array1,
@@ -12,7 +12,7 @@ function join(
 
   const matchItems = options.getMatchFunction({ key, key1, key2, match });
 
-  if (typeof matchItems !== 'function') {
+  if (typeof matchItems !== "function") {
     return [];
   }
 

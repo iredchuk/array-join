@@ -1,5 +1,5 @@
 function getMatchFunction({ key, key1, key2, match }) {
-  if (typeof match === 'function') {
+  if (typeof match === "function") {
     return match;
   }
 

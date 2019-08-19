@@ -1,6 +1,6 @@
-const join = require('./join');
-const leftJoin = require('./left-join');
-const fullJoin = require('./full-join');
+const join = require("./join");
+const leftJoin = require("./left-join");
+const fullJoin = require("./full-join");
 
 module.exports = {
   join,

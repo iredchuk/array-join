@@ -24,18 +24,20 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "pretest": "xo",
     "test": "tsd && jest --coverage",
+    "lint": "eslint .",
     "prepare": "npm test"
   },
   "dependencies": {},
   "devDependencies": {
+    "eslint": "^6.2.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "husky": "^3.0.0",
     "jest": "^24.8.0",
     "lint-staged": "^9.2.0",
     "prettier": "^1.18.2",
-    "tsd": "^0.7.4",
-    "xo": "^0.24.0"
+    "tsd": "^0.7.4"
   },
   "husky": {
     "hooks": {
@@ -45,7 +47,7 @@
   "lint-staged": {
     "*.js": [
       "prettier --write **/*.js",
-      "xo",
+      "npm run lint",
       "git add"
     ]
   },
@@ -62,12 +64,5 @@
         "statements": 100
       }
     }
-  },
-  "xo": {
-    "envs": [
-      "node",
-      "jest"
-    ],
-    "prettier": true
   }
 }

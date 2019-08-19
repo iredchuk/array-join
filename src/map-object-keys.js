@@ -1,5 +1,5 @@
 function mapObjectKeys(obj, mapper) {
-  if (!obj || typeof obj !== 'object' || typeof mapper !== 'function') {
+  if (!obj || typeof obj !== "object" || typeof mapper !== "function") {
     return obj;
   }
 
