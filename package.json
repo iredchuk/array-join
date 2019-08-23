@@ -25,6 +25,7 @@
   },
   "scripts": {
     "test": "tsd && jest --coverage",
+    "test:watch": "jest --watch",
     "lint": "eslint .",
     "prepare": "npm test"
   },

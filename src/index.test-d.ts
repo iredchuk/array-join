@@ -25,6 +25,14 @@ function testTypes(joinFn: any) {
       match: (left: { a: any }, right: { a: any }) => left["a"] === right["a"]
     })
   );
+
+  expectType<object[]>(
+    joinFn(array1, array2, {
+      key: "a",
+      leftAs: "left",
+      rightAs: "right"
+    })
+  );
 }
 
 testTypes(join);

@@ -32,6 +32,8 @@ options = {
   key, // common join key (when key1 is the same as key2)
   propMap1, // function to rename properties of the array1 objects
   propMap2, // function to rename properties of the array2 objects
+  leftAs, // property name for objects from array1
+  rightAs, // property name for objects from array2
   match // custom match function to join objects in arrays
 };
 ```
@@ -41,20 +43,20 @@ options = {
 > join objects on the common key property:
 
 ```js
-const join = require('array-join').join;
+const join = require("array-join").join;
 
 const result = join(
   [
-    { id: 1, name: 'apple' },
-    { id: 2, name: 'banana' },
-    { id: 3, name: 'orange' }
+    { id: 1, name: "apple" },
+    { id: 2, name: "banana" },
+    { id: 3, name: "orange" }
   ],
   [
-    { id: 1, color: 'red' },
-    { id: 2, color: 'yellow' },
-    { id: 4, color: 'blue' }
+    { id: 1, color: "red" },
+    { id: 2, color: "yellow" },
+    { id: 4, color: "blue" }
   ],
-  { key: 'id' }
+  { key: "id" }
 );
 
 console.log(result);
@@ -72,16 +74,16 @@ console.log(result);
 ```js
 const result = join(
   [
-    { id: 1, name: 'apple' },
-    { id: 2, name: 'banana' },
-    { id: 3, name: 'orange' }
+    { id: 1, name: "apple" },
+    { id: 2, name: "banana" },
+    { id: 3, name: "orange" }
   ],
   [
-    { num: 1, color: 'red' },
-    { num: 2, color: 'yellow' },
-    { num: 4, color: 'blue' }
+    { num: 1, color: "red" },
+    { num: 2, color: "yellow" },
+    { num: 4, color: "blue" }
   ],
-  { key1: 'id', key2: 'num' }
+  { key1: "id", key2: "num" }
 );
 
 console.log(result);
@@ -99,16 +101,16 @@ console.log(result);
 ```js
 const result = join(
   [
-    { id: 1, name: 'apple' },
-    { id: 2, name: 'banana' },
-    { id: 3, name: 'orange' }
+    { id: 1, name: "apple" },
+    { id: 2, name: "banana" },
+    { id: 3, name: "orange" }
   ],
   [
-    { id: 2, name: 'Venus' },
-    { id: 3, name: 'Mars' },
-    { id: 4, name: 'Jupiter' }
+    { id: 2, name: "Venus" },
+    { id: 3, name: "Mars" },
+    { id: 4, name: "Jupiter" }
   ],
-  { key: 'id', propMap1: p => 'l_' + p, propMap2: p => 'r_' + p }
+  { key: "id", propMap1: p => "l_" + p, propMap2: p => "r_" + p }
 );
 
 console.log(result);
@@ -126,9 +128,9 @@ console.log(result);
 ```js
 const result = join(
   [
-    { id: '100', name: 'one' },
-    { id: '200', name: 'two' },
-    { id: '300', name: 'three' }
+    { id: "100", name: "one" },
+    { id: "200", name: "two" },
+    { id: "300", name: "three" }
   ],
   [{ index: 1 }, { index: 2 }, { index: 3 }],
   {
@@ -150,21 +152,21 @@ console.log(result);
 > leftJoin adds all items from the left array to the result (even if they don't match):
 
 ```js
-const leftJoin = require('array-join').leftJoin;
+const leftJoin = require("array-join").leftJoin;
 
 const result = leftJoin(
   [
-    { id: 1, name: 'apple' },
-    { id: 2, name: 'banana' },
-    { id: 3, name: 'orange' },
-    { id: 4, name: 'apricot' }
+    { id: 1, name: "apple" },
+    { id: 2, name: "banana" },
+    { id: 3, name: "orange" },
+    { id: 4, name: "apricot" }
   ],
   [
-    { id: 1, color: 'red' },
-    { id: 2, color: 'yellow' },
-    { id: 5, color: 'blue' }
+    { id: 1, color: "red" },
+    { id: 2, color: "yellow" },
+    { id: 5, color: "blue" }
   ],
-  { key: 'id' }
+  { key: "id" }
 );
 
 console.log(result);
@@ -179,23 +181,58 @@ console.log(result);
 */
 ```
 
+> `rightAs` option packs items from the second ("right") array into objects under given property name:
+
+```js
+const leftJoin = require("array-join").leftJoin;
+
+const result = leftJoin(
+  [
+    { id: 1, name: "apple" },
+    { id: 2, name: "banana" },
+    { id: 3, name: "orange" },
+    { id: 4, name: "apricot" }
+  ],
+  [
+    { id: 1, color: "red" },
+    { id: 2, color: "yellow" },
+    { id: 5, color: "blue" }
+  ],
+  { key: "id" },
+  { rightAs: "right" }
+);
+
+console.log(result);
+
+/*
+[
+  { id: 1, name: 'apple', right: { id: 1, color: 'red' } },
+  { id: 2, name: 'banana', right: { id: 2, color: 'yellow' } },
+  { id: 3, name: 'orange' },
+  { id: 4, name: 'apricot' }
+]
+*/
+```
+
+`leftAs` option works similarly for the items from the first ("left") collection.
+
 > fullJoin adds all items from both arrays to the result, merging only ones that match:
 
 ```js
-const fullJoin = require('array-join').fullJoin;
+const fullJoin = require("array-join").fullJoin;
 
 const result = fullJoin(
   [
-    { id: 1, name: 'apple' },
-    { id: 2, name: 'banana' },
-    { id: 3, name: 'orange' }
+    { id: 1, name: "apple" },
+    { id: 2, name: "banana" },
+    { id: 3, name: "orange" }
   ],
   [
-    { id: 1, color: 'red' },
-    { id: 2, color: 'yellow' },
-    { id: 4, color: 'blue' }
+    { id: 1, color: "red" },
+    { id: 2, color: "yellow" },
+    { id: 4, color: "blue" }
   ],
-  { key: 'id' }
+  { key: "id" }
 );
 
 console.log(result);
