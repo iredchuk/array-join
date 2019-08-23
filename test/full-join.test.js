@@ -287,3 +287,113 @@ test("full join when options are not passed returns empty array", () => {
 
   expect(actual).toEqual([]);
 });
+
+test("full join when rightAs option is passed", () => {
+  const array1 = [
+    { id: 1, str: "one" },
+    { id: 2, str: "two" },
+    { id: 3, str: "three" }
+  ];
+
+  const array2 = [
+    { id: 2, bool: true },
+    { id: 3, bool: false },
+    { id: 4, bool: undefined }
+  ];
+
+  const actual = fullJoin(array1, array2, { key: "id", rightAs: "right" });
+
+  const expected = [
+    { id: 1, str: "one" },
+    { id: 2, str: "two", right: { id: 2, bool: true } },
+    { id: 3, str: "three", right: { id: 3, bool: false } },
+    { right: { id: 4, bool: undefined } }
+  ];
+
+  expect(actual).toEqual(expected);
+});
+
+test("full join when leftAs option is passed", () => {
+  const array1 = [
+    { id: 1, str: "one" },
+    { id: 2, str: "two" },
+    { id: 3, str: "three" }
+  ];
+
+  const array2 = [
+    { id: 2, bool: true },
+    { id: 3, bool: false },
+    { id: 4, bool: undefined }
+  ];
+
+  const actual = fullJoin(array1, array2, { key: "id", leftAs: "left" });
+
+  const expected = [
+    { left: { id: 1, str: "one" } },
+    { left: { id: 2, str: "two" }, id: 2, bool: true },
+    { left: { id: 3, str: "three" }, id: 3, bool: false },
+    { id: 4, bool: undefined }
+  ];
+
+  expect(actual).toEqual(expected);
+});
+
+test("full join when both leftAs and rightAs options are passed", () => {
+  const array1 = [
+    { id: 1, str: "one" },
+    { id: 2, str: "two" },
+    { id: 3, str: "three" }
+  ];
+
+  const array2 = [
+    { id: 2, bool: true },
+    { id: 3, bool: false },
+    { id: 4, bool: undefined }
+  ];
+
+  const actual = fullJoin(array1, array2, {
+    key: "id",
+    leftAs: "left",
+    rightAs: "right"
+  });
+
+  const expected = [
+    { left: { id: 1, str: "one" } },
+    { left: { id: 2, str: "two" }, right: { id: 2, bool: true } },
+    { left: { id: 3, str: "three" }, right: { id: 3, bool: false } },
+    { right: { id: 4, bool: undefined } }
+  ];
+
+  expect(actual).toEqual(expected);
+});
+
+test("full join when both leftAs, rightAs and propMap options are passed", () => {
+  const array1 = [
+    { id: 1, str: "one" },
+    { id: 2, str: "two" },
+    { id: 3, str: "three" }
+  ];
+
+  const array2 = [
+    { id: 2, str: "2" },
+    { id: 3, str: "3" },
+    { id: 4, str: "4" }
+  ];
+
+  const actual = fullJoin(array1, array2, {
+    key: "id",
+    leftAs: "left",
+    rightAs: "right",
+    propMap1: p => `${p}_1`,
+    propMap2: p => `${p}_2`
+  });
+
+  const expected = [
+    { left: { id_1: 1, str_1: "one" } },
+    { left: { id_1: 2, str_1: "two" }, right: { id_2: 2, str_2: "2" } },
+    { left: { id_1: 3, str_1: "three" }, right: { id_2: 3, str_2: "3" } },
+    { right: { id_2: 4, str_2: "4" } }
+  ];
+
+  expect(actual).toEqual(expected);
+});
