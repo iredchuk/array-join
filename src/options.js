@@ -14,5 +14,5 @@ function getMatchFunction({ key, key1, key2, match }) {
 }
 
 module.exports = {
-  getMatchFunction
+  getMatchFunction,
 };

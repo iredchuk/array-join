@@ -17,12 +17,12 @@ function join(
   }
 
   return array1.reduce((prev, cur) => {
-    const matches = array2.filter(a2 => matchItems(cur, a2));
+    const matches = array2.filter((a2) => matchItems(cur, a2));
 
     return matches.length === 0
       ? prev
       : prev.concat(
-          matches.map(m =>
+          matches.map((m) =>
             Object.assign(
               {},
               rightAs

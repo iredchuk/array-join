@@ -11,7 +11,7 @@ function fullJoin(
   }
 
   if (!Array.isArray(array2)) {
-    return array1.map(a => a);
+    return array1.map((a) => a);
   }
 
   const matchItems = options.getMatchFunction({ key, key1, key2, match });
@@ -39,7 +39,7 @@ function fullJoin(
             : mapObjectKeys(cur, propMap1)
         )
       : prev.concat(
-          matches.map(m =>
+          matches.map((m) =>
             Object.assign(
               {},
               rightAs
@@ -55,7 +55,7 @@ function fullJoin(
 
   const unmatchedItemsFrom2 = array2
     .filter((_a2, index) => !matchedIndices2.includes(index))
-    .map(a2 =>
+    .map((a2) =>
       rightAs
         ? { [rightAs]: mapObjectKeys(a2, propMap2) }
         : mapObjectKeys(a2, propMap2)

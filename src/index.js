@@ -5,5 +5,5 @@ const fullJoin = require("./full-join");
 module.exports = {
   join,
   leftJoin,
-  fullJoin
+  fullJoin,
 };

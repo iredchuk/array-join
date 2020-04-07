@@ -4,13 +4,13 @@ test("full join two arrays with the same key", () => {
   const array1 = [
     { id: 1, str: "one" },
     { id: 2, str: "two" },
-    { id: 3, str: "three" }
+    { id: 3, str: "three" },
   ];
 
   const array2 = [
     { id: 2, bool: true },
     { id: 3, bool: false },
-    { id: 4, bool: undefined }
+    { id: 4, bool: undefined },
   ];
 
   const actual = fullJoin(array1, array2, { key: "id" });
@@ -19,7 +19,7 @@ test("full join two arrays with the same key", () => {
     { id: 1, str: "one" },
     { id: 2, str: "two", bool: true },
     { id: 3, str: "three", bool: false },
-    { id: 4, bool: undefined }
+    { id: 4, bool: undefined },
   ];
 
   expect(actual).toEqual(expected);
@@ -29,13 +29,13 @@ test("full join two arrays with different keys", () => {
   const array1 = [
     { id: 1, str: "one" },
     { id: 2, str: "two" },
-    { id: 3, str: "three" }
+    { id: 3, str: "three" },
   ];
 
   const array2 = [
     { key: 1, bool: true },
     { key: 3, bool: false },
-    { key: 4, bool: true }
+    { key: 4, bool: true },
   ];
 
   const actual = fullJoin(array1, array2, { key1: "id", key2: "key" });
@@ -44,7 +44,7 @@ test("full join two arrays with different keys", () => {
     { id: 1, key: 1, str: "one", bool: true },
     { id: 2, str: "two" },
     { id: 3, key: 3, str: "three", bool: false },
-    { key: 4, bool: true }
+    { key: 4, bool: true },
   ];
 
   expect(actual).toEqual(expected);
@@ -54,20 +54,24 @@ test("full join two arrays with compare function", () => {
   const array1 = [
     { x: 1, y: 2, str: "0 (mod 3)" },
     { x: 3, y: 1, str: "1 (mod 3)" },
-    { x: 2, y: 6, str: "2 (mod 3)" }
+    { x: 2, y: 6, str: "2 (mod 3)" },
   ];
 
-  const array2 = [{ z: 0, num: 300 }, { z: 1, num: 301 }, { z: 3, num: 303 }];
+  const array2 = [
+    { z: 0, num: 300 },
+    { z: 1, num: 301 },
+    { z: 3, num: 303 },
+  ];
 
   const actual = fullJoin(array1, array2, {
-    match: (a1, a2) => (a1.x + a1.y) % 3 === a2.z
+    match: (a1, a2) => (a1.x + a1.y) % 3 === a2.z,
   });
 
   const expected = [
     { x: 1, y: 2, z: 0, str: "0 (mod 3)", num: 300 },
     { x: 3, y: 1, z: 1, str: "1 (mod 3)", num: 301 },
     { x: 2, y: 6, str: "2 (mod 3)" },
-    { z: 3, num: 303 }
+    { z: 3, num: 303 },
   ];
 
   expect(actual).toEqual(expected);
@@ -77,13 +81,13 @@ test("full join two arrays when keys are not unique", () => {
   const array1 = [
     { key: true, str: "True 1" },
     { key: false, str: "False 1" },
-    { key: true, str: "True 2" }
+    { key: true, str: "True 2" },
   ];
 
   const array2 = [
     { key: null, num: 0 },
     { key: true, num: 1 },
-    { key: true, num: 2 }
+    { key: true, num: 2 },
   ];
 
   const actual = fullJoin(array1, array2, { key: "key" });
@@ -94,7 +98,7 @@ test("full join two arrays when keys are not unique", () => {
     { key: false, str: "False 1" },
     { key: true, str: "True 2", num: 1 },
     { key: true, str: "True 2", num: 2 },
-    { key: null, num: 0 }
+    { key: null, num: 0 },
   ];
 
   expect(actual).toEqual(expected);
@@ -104,13 +108,13 @@ test("full join two arrays when some keys are missing", () => {
   const array1 = [
     { id: 1, str: "one" },
     { id: 2, str: "two" },
-    { str: "unknown" }
+    { str: "unknown" },
   ];
 
   const array2 = [
     { id: 1, bool: false },
     { id: 2, bool: true },
-    { foo: "bar" }
+    { foo: "bar" },
   ];
 
   const actual = fullJoin(array1, array2, { key: "id" });
@@ -119,7 +123,7 @@ test("full join two arrays when some keys are missing", () => {
     { id: 1, str: "one", bool: false },
     { id: 2, str: "two", bool: true },
     { str: "unknown" },
-    { foo: "bar" }
+    { foo: "bar" },
   ];
 
   expect(actual).toEqual(expected);
@@ -129,13 +133,13 @@ test("full join: when some properties are the same, assign values from the first
   const array1 = [
     { id: 1, str: "ONE" },
     { id: 2, str: "TWO" },
-    { id: 3, str: "THREE" }
+    { id: 3, str: "THREE" },
   ];
 
   const array2 = [
     { id: 1, str: "one" },
     { id: 2, str: "two" },
-    { id: 3, str: "three" }
+    { id: 3, str: "three" },
   ];
 
   const actual = fullJoin(array1, array2, { key: "id" });
@@ -143,16 +147,24 @@ test("full join: when some properties are the same, assign values from the first
   const expected = [
     { id: 1, str: "ONE" },
     { id: 2, str: "TWO" },
-    { id: 3, str: "THREE" }
+    { id: 3, str: "THREE" },
   ];
 
   expect(actual).toEqual(expected);
 });
 
 test("full join: when all keys are set, specific keys have preference", () => {
-  const array1 = [{ id: 1, n: 200 }, { id: 2, n: 300 }, { id: 3, n: 400 }];
+  const array1 = [
+    { id: 1, n: 200 },
+    { id: 2, n: 300 },
+    { id: 3, n: 400 },
+  ];
 
-  const array2 = [{ id: 1, m: 300 }, { id: 2, m: 250 }, { id: 3, m: 200 }];
+  const array2 = [
+    { id: 1, m: 300 },
+    { id: 2, m: 250 },
+    { id: 3, m: 200 },
+  ];
 
   const actual = fullJoin(array1, array2, { key: "id", key1: "n", key2: "m" });
 
@@ -160,7 +172,7 @@ test("full join: when all keys are set, specific keys have preference", () => {
     { id: 1, n: 200, m: 200 },
     { id: 2, n: 300, m: 300 },
     { id: 3, n: 400 },
-    { id: 2, m: 250 }
+    { id: 2, m: 250 },
   ];
 
   expect(actual).toEqual(expected);
@@ -214,26 +226,26 @@ test("full join two arrays with property mappers", () => {
   const array1 = [
     { id: 1, str: "left 1" },
     { id: 2, str: "left 2" },
-    { id: 3, str: "left 3" }
+    { id: 3, str: "left 3" },
   ];
 
   const array2 = [
     { id: 2, str: "right 2" },
     { id: 3, str: "right 3" },
-    { id: 4, str: "right 4" }
+    { id: 4, str: "right 4" },
   ];
 
   const actual = fullJoin(array1, array2, {
     key: "id",
-    propMap1: p => "l" + p,
-    propMap2: p => "r" + p
+    propMap1: (p) => "l" + p,
+    propMap2: (p) => "r" + p,
   });
 
   const expected = [
     { lid: 1, lstr: "left 1" },
     { lid: 2, lstr: "left 2", rid: 2, rstr: "right 2" },
     { lid: 3, lstr: "left 3", rid: 3, rstr: "right 3" },
-    { rid: 4, rstr: "right 4" }
+    { rid: 4, rstr: "right 4" },
   ];
 
   expect(actual).toEqual(expected);
@@ -243,35 +255,41 @@ test("full join two arrays with property mappers and custom matching function", 
   const array1 = [
     { id: 1, str: "left 1" },
     { id: 2, str: "left 2" },
-    { id: 3, str: "left 3" }
+    { id: 3, str: "left 3" },
   ];
 
   const array2 = [
     { id: 12, str: "right 2" },
     { id: 13, str: "right 3" },
-    { id: 14, str: "right 4" }
+    { id: 14, str: "right 4" },
   ];
 
   const actual = fullJoin(array1, array2, {
     match: (a1, a2) => a2.id - a1.id === 10,
-    propMap1: p => "l" + p,
-    propMap2: p => "r" + p
+    propMap1: (p) => "l" + p,
+    propMap2: (p) => "r" + p,
   });
 
   const expected = [
     { lid: 1, lstr: "left 1" },
     { lid: 2, lstr: "left 2", rid: 12, rstr: "right 2" },
     { lid: 3, lstr: "left 3", rid: 13, rstr: "right 3" },
-    { rid: 14, rstr: "right 4" }
+    { rid: 14, rstr: "right 4" },
   ];
 
   expect(actual).toEqual(expected);
 });
 
 test("full join when no key is specified returns empty array", () => {
-  const array1 = [{ id: 1, str: "one" }, { id: 2, str: "two" }];
+  const array1 = [
+    { id: 1, str: "one" },
+    { id: 2, str: "two" },
+  ];
 
-  const array2 = [{ id: 1, bool: true }, { id: 2, bool: false }];
+  const array2 = [
+    { id: 1, bool: true },
+    { id: 2, bool: false },
+  ];
 
   const actual = fullJoin(array1, array2, {});
 
@@ -279,9 +297,15 @@ test("full join when no key is specified returns empty array", () => {
 });
 
 test("full join when options are not passed returns empty array", () => {
-  const array1 = [{ id: 1, str: "one" }, { id: 2, str: "two" }];
+  const array1 = [
+    { id: 1, str: "one" },
+    { id: 2, str: "two" },
+  ];
 
-  const array2 = [{ id: 1, bool: true }, { id: 2, bool: false }];
+  const array2 = [
+    { id: 1, bool: true },
+    { id: 2, bool: false },
+  ];
 
   const actual = fullJoin(array1, array2);
 
@@ -292,13 +316,13 @@ test("full join when rightAs option is passed", () => {
   const array1 = [
     { id: 1, str: "one" },
     { id: 2, str: "two" },
-    { id: 3, str: "three" }
+    { id: 3, str: "three" },
   ];
 
   const array2 = [
     { id: 2, bool: true },
     { id: 3, bool: false },
-    { id: 4, bool: undefined }
+    { id: 4, bool: undefined },
   ];
 
   const actual = fullJoin(array1, array2, { key: "id", rightAs: "right" });
@@ -307,7 +331,7 @@ test("full join when rightAs option is passed", () => {
     { id: 1, str: "one" },
     { id: 2, str: "two", right: { id: 2, bool: true } },
     { id: 3, str: "three", right: { id: 3, bool: false } },
-    { right: { id: 4, bool: undefined } }
+    { right: { id: 4, bool: undefined } },
   ];
 
   expect(actual).toEqual(expected);
@@ -317,13 +341,13 @@ test("full join when leftAs option is passed", () => {
   const array1 = [
     { id: 1, str: "one" },
     { id: 2, str: "two" },
-    { id: 3, str: "three" }
+    { id: 3, str: "three" },
   ];
 
   const array2 = [
     { id: 2, bool: true },
     { id: 3, bool: false },
-    { id: 4, bool: undefined }
+    { id: 4, bool: undefined },
   ];
 
   const actual = fullJoin(array1, array2, { key: "id", leftAs: "left" });
@@ -332,7 +356,7 @@ test("full join when leftAs option is passed", () => {
     { left: { id: 1, str: "one" } },
     { left: { id: 2, str: "two" }, id: 2, bool: true },
     { left: { id: 3, str: "three" }, id: 3, bool: false },
-    { id: 4, bool: undefined }
+    { id: 4, bool: undefined },
   ];
 
   expect(actual).toEqual(expected);
@@ -342,26 +366,26 @@ test("full join when both leftAs and rightAs options are passed", () => {
   const array1 = [
     { id: 1, str: "one" },
     { id: 2, str: "two" },
-    { id: 3, str: "three" }
+    { id: 3, str: "three" },
   ];
 
   const array2 = [
     { id: 2, bool: true },
     { id: 3, bool: false },
-    { id: 4, bool: undefined }
+    { id: 4, bool: undefined },
   ];
 
   const actual = fullJoin(array1, array2, {
     key: "id",
     leftAs: "left",
-    rightAs: "right"
+    rightAs: "right",
   });
 
   const expected = [
     { left: { id: 1, str: "one" } },
     { left: { id: 2, str: "two" }, right: { id: 2, bool: true } },
     { left: { id: 3, str: "three" }, right: { id: 3, bool: false } },
-    { right: { id: 4, bool: undefined } }
+    { right: { id: 4, bool: undefined } },
   ];
 
   expect(actual).toEqual(expected);
@@ -371,28 +395,28 @@ test("full join when both leftAs, rightAs and propMap options are passed", () =>
   const array1 = [
     { id: 1, str: "one" },
     { id: 2, str: "two" },
-    { id: 3, str: "three" }
+    { id: 3, str: "three" },
   ];
 
   const array2 = [
     { id: 2, str: "2" },
     { id: 3, str: "3" },
-    { id: 4, str: "4" }
+    { id: 4, str: "4" },
   ];
 
   const actual = fullJoin(array1, array2, {
     key: "id",
     leftAs: "left",
     rightAs: "right",
-    propMap1: p => `${p}_1`,
-    propMap2: p => `${p}_2`
+    propMap1: (p) => `${p}_1`,
+    propMap2: (p) => `${p}_2`,
   });
 
   const expected = [
     { left: { id_1: 1, str_1: "one" } },
     { left: { id_1: 2, str_1: "two" }, right: { id_2: 2, str_2: "2" } },
     { left: { id_1: 3, str_1: "three" }, right: { id_2: 3, str_2: "3" } },
-    { right: { id_2: 4, str_2: "4" } }
+    { right: { id_2: 4, str_2: "4" } },
   ];
 
   expect(actual).toEqual(expected);
