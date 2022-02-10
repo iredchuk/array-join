@@ -1,4 +1,4 @@
-export type MatchFn = (a: object, b: object) => boolean;
+export type MatchFn = (a: any, b: any) => boolean;
 export type PropMapFn = (a: string) => string;
 
 export interface Options {
@@ -15,17 +15,17 @@ export interface Options {
 export function join(
   array1: object[],
   array2: object[],
-  options: Options
+  options?: Options
 ): object[];
 
 export function leftJoin(
   array1: object[],
   array2: object[],
-  options: Options
+  options?: Options
 ): object[];
 
 export function fullJoin(
   array1: object[],
   array2: object[],
-  options: Options
+  options?: Options
 ): object[];

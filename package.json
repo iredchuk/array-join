@@ -21,7 +21,7 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=14.0.0"
   },
   "scripts": {
     "test": "tsd && jest --coverage",
@@ -29,40 +29,12 @@
     "lint": "eslint .",
     "prepare": "npm test"
   },
-  "dependencies": {},
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.1",
-    "eslint-plugin-prettier": "^3.1.2",
-    "husky": "^4.2.3",
-    "jest": "^25.2.7",
-    "lint-staged": "^10.1.2",
+    "eslint": "^8.8.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.5.1",
     "prettier": "^2.0.4",
-    "tsd": "^0.7.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.js": [
-      "prettier --write **/*.js",
-      "npm run lint"
-    ]
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "collectCoverageFrom": [
-      "src/**/*.js"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
-      }
-    }
+    "tsd": "^0.19.1"
   }
 }

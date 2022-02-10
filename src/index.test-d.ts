@@ -1,11 +1,17 @@
 import { expectType } from "tsd";
-import { join, leftJoin, fullJoin } from ".";
+import { join, leftJoin, fullJoin, Options } from ".";
 
 const array1 = [{ a: 1, b: 2 }];
 const array2 = [{ a: 2, c: 3 }];
 
-function testTypes(joinFn: any) {
-  expectType<object[]>(joinFn(undefined, undefined, {}));
+type JoinFn = (
+  array1: object[],
+  array2: object[],
+  options?: Options
+) => object[];
+
+function testTypes(joinFn: JoinFn) {
+  expectType<object[]>(joinFn(array1, array2));
 
   expectType<object[]>(joinFn(array1, array2, { key: "a" }));
 
@@ -15,14 +21,14 @@ function testTypes(joinFn: any) {
     joinFn(array1, array2, {
       key: "a",
       propMap1: (s: string) => s + "1",
-      propMap2: (s: string) => s + "2"
+      propMap2: (s: string) => s + "2",
     })
   );
 
   expectType<object[]>(
     joinFn(array1, array2, {
       key: "a",
-      match: (left: { a: any }, right: { a: any }) => left["a"] === right["a"]
+      match: (left: { a: any }, right: { a: any }) => left["a"] === right["a"],
     })
   );
 
@@ -30,7 +36,7 @@ function testTypes(joinFn: any) {
     joinFn(array1, array2, {
       key: "a",
       leftAs: "left",
-      rightAs: "right"
+      rightAs: "right",
     })
   );
 }
