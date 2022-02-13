@@ -1,6 +1,6 @@
 {
   "name": "array-join",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Join (SQL-like) arrays of objects by a common key or with a custom match function.",
   "repository": {
     "type": "git",
