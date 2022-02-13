@@ -1,2 +1,3 @@
 test/
 coverage/
+jest.config.js
