@@ -89,7 +89,7 @@ console.log(
     addresses,
     (left) => left.id,
     (right) => right.personId,
-    (left, right) => ({ ...left, ...right })
+    (left, right) => ({ left, right })
   )
 );
 ```
@@ -122,7 +122,7 @@ console.log(
     addresses,
     (left) => left.id,
     (right) => right.personId,
-    (left, right) => ({ ...left, ...right })
+    (left, right) => ({ left, right })
   )
 );
 ```
