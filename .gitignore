@@ -3,11 +3,6 @@ logs
 *.log
 npm-debug.log*
 
-# Runtime data
-pids
-*.pid
-*.seed
-
 # Dependency directories
 node_modules
 
@@ -17,4 +12,12 @@ node_modules
 # Optional REPL history
 .node_repl_history
 
-coverage
+# Test artifacts
+coverage/
+
+# Build artifacts
+dist/
+*.tsbuildinfo
+
+# OS
+.DS_Store
