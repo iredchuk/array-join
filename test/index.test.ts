@@ -203,6 +203,28 @@ describe("join", () => {
 
     expect(actual).toEqual([]);
   });
+
+  test("NaN keys match", () => {
+    const array1: LeftItem[] = [
+      { id: NaN, str: "???" },
+      { id: NaN, str: "..." },
+    ];
+
+    const array2: RightItem[] = [{ id: NaN, bool: false }];
+
+    const actual = join(
+      array1,
+      array2,
+      (l) => l.id,
+      (r) => r.id,
+      (l, r) => ({ ...l, ...r })
+    );
+
+    expect(actual).toEqual([
+      { id: NaN, str: "???", bool: false },
+      { id: NaN, str: "...", bool: false },
+    ]);
+  });
 });
 
 describe("leftJoin", () => {
