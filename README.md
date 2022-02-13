@@ -7,242 +7,155 @@ Join arrays of objects by a common key or with a custom match function, similarl
 
 ## Installation
 
-```console
-$ npm install array-join
+```sh
+npm install array-join
 ```
 
 or
 
-```console
-$ yarn add array-join
+```sh
+yarn add array-join
 ```
 
 ## Usage
 
-### join(array1, array2, options)
+`join(leftArray, rightArray, getLeftKey, getRightKey, getResultItem)`
 
-### leftJoin(array1, array2, options)
+`leftJoin(leftArray, rightArray, getLeftKey, getRightKey, getResultItem)`
 
-### fullJoin(array1, array2, options)
+`fullJoin(leftArray, rightArray, getLeftKey, getRightKey, getResultItem)`
 
-```js
-options = {
-  key1, // key property in the array1 objects to join objects on
-  key2, // key property in the array2 objects to join objects on
-  key, // common join key (when key1 is the same as key2)
-  propMap1, // function to rename properties of the array1 objects
-  propMap2, // function to rename properties of the array2 objects
-  leftAs, // property name for objects from array1
-  rightAs, // property name for objects from array2
-  match // custom match function to join objects in arrays
-};
-```
+- `leftArray`, `rightArray` - arrays to join
 
-### Examples
+- `getLeftKey`, `getRightKey` - functions to extract the key to join on from each item of the first and second array respectively. The key type should be a primitive type as matching is based on SameValueZero equality.
 
-> join objects on the common key property:
+- `getResultItem` - a function to create a result item from two matching items of the given arrays. In case of `leftJoin` the second argument for each non-matching item from the right array will be `undefined`, in case of `fullJoin` both arguments will be undefined in case items from the left or the right array do not match.
+
+All parameters are required. In a non-TypeScript environment a runtime error will occur when some parameters are skipped.
+
+## Examples
 
 ```js
-const join = require("array-join").join;
+import { join, leftJoin, fullJoin } from "array-join";
 
-const result = join(
-  [
-    { id: 1, name: "apple" },
-    { id: 2, name: "banana" },
-    { id: 3, name: "orange" }
-  ],
-  [
-    { id: 1, color: "red" },
-    { id: 2, color: "yellow" },
-    { id: 4, color: "blue" }
-  ],
-  { key: "id" }
+const people = [
+  { id: 1, name: "Bob" },
+  { id: 2, name: "Mary" },
+  { id: 3, name: "Alice" },
+];
+
+const addresses = [
+  { personId: 1, address: { city: "New York", country: "US" } },
+  { personId: 2, address: { city: "Toronto", country: "Canada" } },
+  { personId: 4, address: { city: "London", country: "UK" } },
+];
+
+console.log(
+  join(
+    people,
+    addresses,
+    (left) => left.id,
+    (right) => right.personId,
+    (left, right) => ({ ...left, ...right })
+  )
 );
-
-console.log(result);
-
-/*
-[
-  { id: 1, name: 'apple', color: 'red' },
-  { id: 2, name: 'banana', color: 'yellow' }
-]
-*/
 ```
 
-> join objects on different key properties:
+will output
 
-```js
-const result = join(
-  [
-    { id: 1, name: "apple" },
-    { id: 2, name: "banana" },
-    { id: 3, name: "orange" }
-  ],
-  [
-    { num: 1, color: "red" },
-    { num: 2, color: "yellow" },
-    { num: 4, color: "blue" }
-  ],
-  { key1: "id", key2: "num" }
-);
-
-console.log(result);
-
-/*
+```sh
 [
-  { id: 1, name: 'apple', color: 'red' },
-  { id: 2, name: 'banana', color: 'yellow' }
-]
-*/
-```
-
-> object properties can be renamed to avoid possible collisions:
-
-```js
-const result = join(
-  [
-    { id: 1, name: "apple" },
-    { id: 2, name: "banana" },
-    { id: 3, name: "orange" }
-  ],
-  [
-    { id: 2, name: "Venus" },
-    { id: 3, name: "Mars" },
-    { id: 4, name: "Jupiter" }
-  ],
-  { key: "id", propMap1: p => "l_" + p, propMap2: p => "r_" + p }
-);
-
-console.log(result);
-
-/*
-[
-  { l_id: 2, r_id: 2, l_name: 'banana', r_name: 'Venus' },
-  { l_id: 3, r_id: 2, l_name: 'orange', r_name: 'Mars' }
-]
-*/
-```
-
-> join objects with a custom match function:
-
-```js
-const result = join(
-  [
-    { id: "100", name: "one" },
-    { id: "200", name: "two" },
-    { id: "300", name: "three" }
-  ],
-  [{ index: 1 }, { index: 2 }, { index: 3 }],
   {
-    match: (left, right) => Number(left.id) === 100 * right.index
+    id: 1,
+    name: 'Bob',
+    personId: 1,
+    address: { city: 'New York', country: 'US' }
+  },
+  {
+    id: 2,
+    name: 'Mary',
+    personId: 2,
+    address: { city: 'Toronto', country: 'Canada' }
   }
-);
-
-console.log(result);
-
-/*
-[
-  { id: '100', name: 'one', index: 1 },
-  { id: '200', name: 'two', index: 2 },
-  { id: '300', name: 'three', index: 3 }
 ]
-*/
 ```
 
-> leftJoin adds all items from the left array to the result (even if they don't match):
+### leftJoin
 
 ```js
-const leftJoin = require("array-join").leftJoin;
-
-const result = leftJoin(
-  [
-    { id: 1, name: "apple" },
-    { id: 2, name: "banana" },
-    { id: 3, name: "orange" },
-    { id: 4, name: "apricot" }
-  ],
-  [
-    { id: 1, color: "red" },
-    { id: 2, color: "yellow" },
-    { id: 5, color: "blue" }
-  ],
-  { key: "id" }
+console.log(
+  leftJoin(
+    people,
+    addresses,
+    (left) => left.id,
+    (right) => right.personId,
+    (left, right) => ({ ...left, ...right })
+  )
 );
-
-console.log(result);
-
-/*
-[
-  { id: 1, name: 'apple', color: 'red' },
-  { id: 2, name: 'banana', color: 'yellow' },
-  { id: 3, name: 'orange' },
-  { id: 4, name: 'apricot' }
-]
-*/
 ```
 
-> `rightAs` option packs items from the second ("right") array into objects under given property name:
+will also include non-matching items from the left array
+
+```sh
+[
+  {
+    left: { id: 1, name: 'Bob' },
+    right: { personId: 1, address: { city: 'New York', country: 'US' } }
+  },
+  {
+    left: { id: 2, name: 'Mary' },
+    right: { personId: 2, address: { city: 'Toronto', country: 'Canada' } }
+  },
+  {
+    left: { id: 3, name: 'Alice' },
+    right: undefined
+  }
+]
+```
+
+### fullJoin
 
 ```js
-const leftJoin = require("array-join").leftJoin;
-
-const result = leftJoin(
-  [
-    { id: 1, name: "apple" },
-    { id: 2, name: "banana" },
-    { id: 3, name: "orange" },
-    { id: 4, name: "apricot" }
-  ],
-  [
-    { id: 1, color: "red" },
-    { id: 2, color: "yellow" },
-    { id: 5, color: "blue" }
-  ],
-  { key: "id" },
-  { rightAs: "right" }
+console.log(
+  fullJoin(
+    people,
+    addresses,
+    (left) => left.id,
+    (right) => right.personId,
+    (left, right) => ({ ...left, ...right })
+  )
 );
-
-console.log(result);
-
-/*
-[
-  { id: 1, name: 'apple', right: { id: 1, color: 'red' } },
-  { id: 2, name: 'banana', right: { id: 2, color: 'yellow' } },
-  { id: 3, name: 'orange' },
-  { id: 4, name: 'apricot' }
-]
-*/
 ```
 
-`leftAs` option works similarly for the items from the first ("left") collection.
+will include non-matching items from both arrays
 
-> fullJoin adds all items from both arrays to the result, merging only ones that match:
-
-```js
-const fullJoin = require("array-join").fullJoin;
-
-const result = fullJoin(
-  [
-    { id: 1, name: "apple" },
-    { id: 2, name: "banana" },
-    { id: 3, name: "orange" }
-  ],
-  [
-    { id: 1, color: "red" },
-    { id: 2, color: "yellow" },
-    { id: 4, color: "blue" }
-  ],
-  { key: "id" }
-);
-
-console.log(result);
-
-/*
+```sh
 [
-  { id: 1, name: 'apple', color: 'red' },
-  { id: 2, name: 'banana', color: 'yellow' },
-  { id: 3, name: 'orange' },
-  { id: 4, color: 'blue' }
+  {
+    left: { id: 1, name: 'Bob' },
+    right: { personId: 1, address: { city: 'New York', country: 'US' } }
+  },
+  {
+    left: { id: 2, name: 'Mary' },
+    right: { personId: 2, address: { city: 'Toronto', country: 'Canada' } }
+  },
+  {
+    left: { id: 3, name: 'Alice' },
+    right: undefined
+  }
+  {
+    left: undefined,
+    right:{ personId: 4, address: { city: 'London', country: 'UK' } }
+  }
 ]
-*/
 ```
+
+## Breaking changes in version 3
+
+- re-written on TypeScript (which ensures typings to be correct)
+
+- simplefied interface with all required parameters
+
+- accept an arbitrary function to create a result item
+
+- deprecated matching items by a custom function for the sake of performance improvement (up to 10x)
