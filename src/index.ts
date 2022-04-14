@@ -23,7 +23,7 @@ const joinIntern = <TLeft, TRight, TKey, TResult>(
   rightCollection: Iterable<TRight>,
   getLeftKey: (l: TLeft) => TKey,
   getRightKey: (r: TRight) => TKey,
-  getResultItem: (l: TLeft | undefined, e: TRight | undefined) => TResult,
+  getResultItem: (l: TLeft | undefined, r: TRight | undefined) => TResult,
   alwaysIncludeLeftItems: boolean,
   alwaysIncludeRightItems: boolean
 ): TResult[] => {
@@ -36,7 +36,6 @@ const joinIntern = <TLeft, TRight, TKey, TResult>(
   if (!alwaysIncludeLeftItems && rightMap.size === 0) {
     return [];
   }
-
 
   const result: TResult[] = [];
 
@@ -76,7 +75,7 @@ export const join = <TLeft, TRight, TKey, TResult>(
   rightCollection: Iterable<TRight>,
   getLeftKey: (l: TLeft) => TKey,
   getRightKey: (r: TRight) => TKey,
-  getResultItem: (l: TLeft, e: TRight) => TResult
+  getResultItem: (l: TLeft, r: TRight) => TResult
 ): TResult[] =>
   joinIntern(
     leftCollection,
@@ -93,7 +92,7 @@ export const leftJoin = <TLeft, TRight, TKey, TResult>(
   rightCollection: Iterable<TRight>,
   getLeftKey: (l: TLeft) => TKey,
   getRightKey: (r: TRight) => TKey,
-  getResultItem: (l: TLeft, e: TRight | undefined) => TResult
+  getResultItem: (l: TLeft, r: TRight | undefined) => TResult
 ): TResult[] =>
   joinIntern(
     leftCollection,
@@ -110,7 +109,7 @@ export const fullJoin = <TLeft, TRight, TKey, TResult>(
   rightCollection: Iterable<TRight>,
   getLeftKey: (l: TLeft) => TKey,
   getRightKey: (r: TRight) => TKey,
-  getResultItem: (l: TLeft | undefined, e: TRight | undefined) => TResult
+  getResultItem: (l: TLeft | undefined, r: TRight | undefined) => TResult
 ): TResult[] =>
   joinIntern(
     leftCollection,

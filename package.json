@@ -16,8 +16,10 @@
   "keywords": [
     "array",
     "arrays",
+    "iterable",
     "join",
     "left-join",
+    "full-join",
     "util"
   ],
   "license": "MIT",
