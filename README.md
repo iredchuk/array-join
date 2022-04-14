@@ -2,7 +2,6 @@
 
 Join two iterables (e.g. arrays) of objects by a common (user-defined) key, similarly to how SQL JOIN, LEFT JOIN and FULL JOIN work.
 
-[![build status](https://img.shields.io/travis/iredchuk/array-join/master.svg?style=flat-square)](https://travis-ci.org/iredchuk/array-join)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 ## Installation
