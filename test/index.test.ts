@@ -225,6 +225,29 @@ describe("join", () => {
       { id: NaN, str: "...", bool: false },
     ]);
   });
+
+  test("with non-array iterables", () => {
+    const set = new Set<string>(["a-1", "b-2", "c-3"]);
+
+    const map = new Map<string, number>([
+      ["a", 100],
+      ["b", 200],
+      ["d", 900],
+    ]);
+
+    const actual = join(
+      set,
+      map,
+      (l) => l.split("-")[0],
+      (r) => r[0],
+      (l, r) => ({ id: r[0], num: r[1], code: l.split("-")[1] })
+    );
+
+    expect(actual).toEqual([
+      { id: "a", num: 100, code: "1" },
+      { id: "b", num: 200, code: "2" },
+    ]);
+  });
 });
 
 describe("leftJoin", () => {

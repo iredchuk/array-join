@@ -1,6 +1,6 @@
 # array-join
 
-Join arrays of objects by a common key or with a custom match function, similarly to how SQL JOIN, LEFT JOIN and FULL JOIN work.
+Join two iterables (e.g. arrays) of objects by a common (user-defined) key, similarly to how SQL JOIN, LEFT JOIN and FULL JOIN work.
 
 [![build status](https://img.shields.io/travis/iredchuk/array-join/master.svg?style=flat-square)](https://travis-ci.org/iredchuk/array-join)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
@@ -19,17 +19,17 @@ yarn add array-join
 
 ## Usage
 
-`join(leftArray, rightArray, getLeftKey, getRightKey, getResultItem)`
+`join(leftCollection, rightCollection, getLeftKey, getRightKey, getResultItem)`
 
-`leftJoin(leftArray, rightArray, getLeftKey, getRightKey, getResultItem)`
+`leftJoin(leftCollection, rightCollection, getLeftKey, getRightKey, getResultItem)`
 
-`fullJoin(leftArray, rightArray, getLeftKey, getRightKey, getResultItem)`
+`fullJoin(leftCollection, rightCollection, getLeftKey, getRightKey, getResultItem)`
 
-- `leftArray`, `rightArray` - arrays to join
+- `leftCollection`, `rightCollection` - two `Iterable` collections to join (e.g. arrays)
 
-- `getLeftKey`, `getRightKey` - functions to extract the key to join on from each item of the first and second array respectively. The key type should be a primitive type as matching is based on SameValueZero equality.
+- `getLeftKey`, `getRightKey` - functions to extract the key to join on from each item of the first and second collection respectively. The key type should be a primitive type as matching is based on SameValueZero equality.
 
-- `getResultItem` - a function to create a result item from two matching items of the given arrays. In case of `leftJoin` the second argument for each non-matching item from the right array will be `undefined`, in case of `fullJoin` both arguments will be undefined in case items from the left or the right array do not match.
+- `getResultItem` - a function to create a result item from two matching items of the given collections. In case of `leftJoin` the second argument for each non-matching item from the right collection will be `undefined`, in case of `fullJoin` both arguments will be undefined in case items from the left or the right collection do not match.
 
 All parameters are required. In a non-TypeScript environment a runtime error will occur when some parameters are skipped.
 
@@ -94,7 +94,7 @@ console.log(
 );
 ```
 
-will also include non-matching items from the left array
+will also include non-matching items from the left collection
 
 ```sh
 [
@@ -127,7 +127,7 @@ console.log(
 );
 ```
 
-will include non-matching items from both arrays
+will include non-matching items from both collections
 
 ```sh
 [
@@ -152,10 +152,10 @@ will include non-matching items from both arrays
 
 ## Breaking changes in version 3
 
-- re-written on TypeScript (which ensures typings to be correct)
+- Rewritten on TypeScript (which ensures typings to be correct)
 
-- simplefied interface with all required parameters
+- Simplified interface with all required parameters
 
-- accept an arbitrary function to create a result item
+- Accept an arbitrary function to create a result item
 
-- deprecated matching items by a custom function for the sake of performance improvement (up to 10x)
+- Deprecated matching items by a custom function for the sake of performance improvement (up to 10x)

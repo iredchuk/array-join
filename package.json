@@ -1,7 +1,7 @@
 {
   "name": "array-join",
   "version": "3.0.2",
-  "description": "Join (SQL-like) arrays of objects by a common key or with a custom match function.",
+  "description": "Join (SQL-like) two iterables by a common key.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/iredchuk/array-join"
