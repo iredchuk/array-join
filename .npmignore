@@ -2,4 +2,4 @@ test/
 coverage/
 jest.config.js
 .gitattributes
-.travis.yml
+package-lock.json
