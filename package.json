@@ -1,7 +1,7 @@
 {
   "name": "array-join",
   "version": "3.0.2",
-  "description": "Join (SQL-like) arrays of objects by a common key or with a custom match function.",
+  "description": "Join (SQL-like) two iterables by a common key.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/iredchuk/array-join"
@@ -31,10 +31,10 @@
     "prepare": "npm test && npm run build"
   },
   "devDependencies": {
-    "@types/jest": "^27.4.0",
+    "@types/jest": "^27.4.1",
     "jest": "^27.5.1",
-    "prettier": "^2.0.4",
-    "ts-jest": "^27.1.3",
-    "typescript": "^4.5.5"
+    "prettier": "^2.6.2",
+    "ts-jest": "^27.1.4",
+    "typescript": "^4.6.3"
   }
 }
