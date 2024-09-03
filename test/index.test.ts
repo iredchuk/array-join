@@ -1,3 +1,5 @@
+import assert from "node:assert/strict";
+import { describe, test } from "node:test";
 import { fullJoin, join, leftJoin } from "../src/index";
 
 interface LeftItem {
@@ -32,10 +34,13 @@ describe("join", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([
-      { id: 2, str: "two", bool: true },
-      { id: 3, str: "three", bool: false },
-    ]);
+    assert.deepEqual(
+      [
+        { id: 2, str: "two", bool: true },
+        { id: 3, str: "three", bool: false },
+      ],
+      actual
+    );
   });
 
   test("with string key", () => {
@@ -58,10 +63,13 @@ describe("join", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([
-      { id: 2, str: "two", bool: true, desc: "two" },
-      { id: 3, str: "three", bool: false, desc: "three" },
-    ]);
+    assert.deepEqual(
+      [
+        { id: 2, str: "two", bool: true, desc: "two" },
+        { id: 3, str: "three", bool: false, desc: "three" },
+      ],
+      actual
+    );
   });
 
   test("when keys are not unique", () => {
@@ -87,13 +95,16 @@ describe("join", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([
-      { id: 1, str: "1", bool: false },
-      { id: 1, str: "1", bool: false, desc: "Second false" },
-      { id: 1, str: "1.2", bool: false },
-      { id: 1, str: "1.2", bool: false, desc: "Second false" },
-      { id: 2, str: "2", bool: true },
-    ]);
+    assert.deepEqual(
+      [
+        { id: 1, str: "1", bool: false },
+        { id: 1, str: "1", bool: false, desc: "Second false" },
+        { id: 1, str: "1.2", bool: false },
+        { id: 1, str: "1.2", bool: false, desc: "Second false" },
+        { id: 2, str: "2", bool: true },
+      ],
+      actual
+    );
   });
 
   test("when some keys are null or undefined", () => {
@@ -119,12 +130,15 @@ describe("join", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([
-      { id: 1, str: "1", bool: false, desc: "1" },
-      { id: 3, str: null, bool: false, desc: null },
-      { id: 2, bool: true },
-      { id: 2, bool: false, desc: undefined },
-    ]);
+    assert.deepEqual(
+      [
+        { id: 1, str: "1", bool: false, desc: "1" },
+        { id: 3, str: null, bool: false, desc: null },
+        { id: 2, bool: true },
+        { id: 2, bool: false, desc: undefined },
+      ],
+      actual
+    );
   });
 
   test("with some undefined items", () => {
@@ -150,7 +164,7 @@ describe("join", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([{ id: 2, str: "two", bool: true }]);
+    assert.deepEqual([{ id: 2, str: "two", bool: true }], actual);
   });
 
   test("when both arrays are empty, return empty array", () => {
@@ -166,7 +180,7 @@ describe("join", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([]);
+    assert.deepEqual([], actual);
   });
 
   test("when first array is empty, return empty array", () => {
@@ -185,7 +199,7 @@ describe("join", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([]);
+    assert.deepEqual([], actual);
   });
 
   test("when second array is empty, return empty array", () => {
@@ -201,7 +215,7 @@ describe("join", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([]);
+    assert.deepEqual([], actual);
   });
 
   test("NaN keys match", () => {
@@ -220,10 +234,13 @@ describe("join", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([
-      { id: NaN, str: "???", bool: false },
-      { id: NaN, str: "...", bool: false },
-    ]);
+    assert.deepEqual(
+      [
+        { id: NaN, str: "???", bool: false },
+        { id: NaN, str: "...", bool: false },
+      ],
+      actual
+    );
   });
 
   test("with non-array iterables", () => {
@@ -243,10 +260,13 @@ describe("join", () => {
       (l, r) => ({ id: r[0], num: r[1], code: l.split("-")[1] })
     );
 
-    expect(actual).toEqual([
-      { id: "a", num: 100, code: "1" },
-      { id: "b", num: 200, code: "2" },
-    ]);
+    assert.deepEqual(
+      [
+        { id: "a", num: 100, code: "1" },
+        { id: "b", num: 200, code: "2" },
+      ],
+      actual
+    );
   });
 });
 
@@ -271,11 +291,14 @@ describe("leftJoin", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([
-      { id: 1, str: "one" },
-      { id: 2, str: "two", bool: true },
-      { id: 3, str: "three", bool: false },
-    ]);
+    assert.deepEqual(
+      [
+        { id: 1, str: "one" },
+        { id: 2, str: "two", bool: true },
+        { id: 3, str: "three", bool: false },
+      ],
+      actual
+    );
   });
 
   test("when keys are not unique", () => {
@@ -302,15 +325,18 @@ describe("leftJoin", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([
-      { id: 1, str: "1", bool: false },
-      { id: 1, str: "1", bool: false, desc: "Second false" },
-      { id: 1, str: "1.2", bool: false },
-      { id: 1, str: "1.2", bool: false, desc: "Second false" },
-      { id: 2, str: "2", bool: true },
-      { id: 3, str: "3" },
-      { id: 3, str: "3.1" },
-    ]);
+    assert.deepEqual(
+      [
+        { id: 1, str: "1", bool: false },
+        { id: 1, str: "1", bool: false, desc: "Second false" },
+        { id: 1, str: "1.2", bool: false },
+        { id: 1, str: "1.2", bool: false, desc: "Second false" },
+        { id: 2, str: "2", bool: true },
+        { id: 3, str: "3" },
+        { id: 3, str: "3.1" },
+      ],
+      actual
+    );
   });
 
   test("when some keys are null or undefined", () => {
@@ -335,12 +361,15 @@ describe("leftJoin", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([
-      { id: 1, str: "1" },
-      { id: 2, str: "2" },
-      { id: 3, str: null, bool: false, desc: null },
-      { id: 4, str: "", bool: true, desc: "" },
-    ]);
+    assert.deepEqual(
+      [
+        { id: 1, str: "1" },
+        { id: 2, str: "2" },
+        { id: 3, str: null, bool: false, desc: null },
+        { id: 4, str: "", bool: true, desc: "" },
+      ],
+      actual
+    );
   });
 
   test("when both arrays are empty, return empty array", () => {
@@ -356,7 +385,7 @@ describe("leftJoin", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([]);
+    assert.deepEqual([], actual);
   });
 
   test("when first array is empty, return empty array", () => {
@@ -375,7 +404,7 @@ describe("leftJoin", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([]);
+    assert.deepEqual([], actual);
   });
 
   test("when second array is empty, return all items from first array", () => {
@@ -391,7 +420,7 @@ describe("leftJoin", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([{ id: 1, str: "one" }, { id: 2 }]);
+    assert.deepEqual([{ id: 1, str: "one" }, { id: 2 }], actual);
   });
 });
 
@@ -417,12 +446,15 @@ describe("fullJoin", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([
-      { id: 1, str: "one" },
-      { id: 2, str: "two", bool: true },
-      { id: 3, str: "three", bool: false },
-      { id: 4, bool: true, desc: "Four" },
-    ]);
+    assert.deepEqual(
+      [
+        { id: 1, str: "one" },
+        { id: 2, str: "two", bool: true },
+        { id: 3, str: "three", bool: false },
+        { id: 4, bool: true, desc: "Four" },
+      ],
+      actual
+    );
   });
 
   test("when keys are not unique", () => {
@@ -449,16 +481,19 @@ describe("fullJoin", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([
-      { id: 1, str: "1", bool: false },
-      { id: 1, str: "1", bool: false, desc: "Second false" },
-      { id: 1, str: "1.2", bool: false },
-      { id: 1, str: "1.2", bool: false, desc: "Second false" },
-      { id: 2, str: "2", bool: true },
-      { id: 3, str: "3" },
-      { id: 3, str: "3.1" },
-      { id: 4, bool: true },
-    ]);
+    assert.deepEqual(
+      [
+        { id: 1, str: "1", bool: false },
+        { id: 1, str: "1", bool: false, desc: "Second false" },
+        { id: 1, str: "1.2", bool: false },
+        { id: 1, str: "1.2", bool: false, desc: "Second false" },
+        { id: 2, str: "2", bool: true },
+        { id: 3, str: "3" },
+        { id: 3, str: "3.1" },
+        { id: 4, bool: true },
+      ],
+      actual
+    );
   });
 
   test("when some keys are null or undefined", () => {
@@ -483,13 +518,16 @@ describe("fullJoin", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([
-      { id: 1, str: "1" },
-      { id: 2, str: "2" },
-      { id: 3, str: null, bool: false, desc: null },
-      { id: 4, str: "", bool: true, desc: "" },
-      { id: 2, bool: true },
-    ]);
+    assert.deepEqual(
+      [
+        { id: 1, str: "1" },
+        { id: 2, str: "2" },
+        { id: 3, str: null, bool: false, desc: null },
+        { id: 4, str: "", bool: true, desc: "" },
+        { id: 2, bool: true },
+      ],
+      actual
+    );
   });
 
   test("when both arrays are empty, return empty array", () => {
@@ -505,7 +543,7 @@ describe("fullJoin", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([]);
+    assert.deepEqual([], actual);
   });
 
   test("when first array is empty, return all items from second array", () => {
@@ -524,10 +562,13 @@ describe("fullJoin", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([
-      { id: 1, bool: false },
-      { id: 2, bool: true },
-    ]);
+    assert.deepEqual(
+      [
+        { id: 1, bool: false },
+        { id: 2, bool: true },
+      ],
+      actual
+    );
   });
 
   test("when second array is empty, return all items from first array", () => {
@@ -535,7 +576,7 @@ describe("fullJoin", () => {
 
     const array2: RightItem[] = [];
 
-    const actual = leftJoin(
+    const actual = fullJoin(
       array1,
       array2,
       (l) => l.id,
@@ -543,6 +584,6 @@ describe("fullJoin", () => {
       (l, r) => ({ ...l, ...r })
     );
 
-    expect(actual).toEqual([{ id: 1, str: "one" }, { id: 2 }]);
+    assert.deepEqual([{ id: 1, str: "one" }, { id: 2 }], actual);
   });
 });
