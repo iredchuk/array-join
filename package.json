@@ -1,6 +1,6 @@
 {
   "name": "array-join",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Join (SQL-like) two iterables by a common key.",
   "repository": {
     "type": "git",
