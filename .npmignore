@@ -1,6 +1,5 @@
 test/
 coverage/
-jest.config.js
 .gitattributes
 package-lock.json
 .github/
