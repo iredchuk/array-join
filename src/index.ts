@@ -3,18 +3,15 @@ const createMap = <TItem, TKey>(
   getKey: (a: TItem) => TKey
 ): Map<TKey, TItem[]> => {
   const map = new Map<TKey, TItem[]>();
-
   for (const item of collection) {
-    const value = getKey(item);
-    if (map.has(value)) {
-      const items = map.get(value);
-      items!.push(item);
-      map.set(value, items!);
+    const key = getKey(item);
+    const existing = map.get(key);
+    if (existing) {
+      existing.push(item);
     } else {
-      map.set(value, [item]);
+      map.set(key, [item]);
     }
   }
-
   return map;
 };
 
@@ -39,30 +36,27 @@ const joinIntern = <TLeft, TRight, TKey, TResult>(
 
   const result: TResult[] = [];
 
-  for (const key of leftMap.keys()) {
-    if (rightMap.has(key)) {
-      const leftItems = leftMap.get(key);
-      const rightItems = rightMap.get(key);
-      leftItems!.forEach((leftItem) =>
-        rightItems!.forEach((rightItem) =>
-          result.push(getResultItem(leftItem, rightItem))
-        )
-      );
+  for (const [key, leftItems] of leftMap) {
+    const rightItems = rightMap.get(key);
+    if (rightItems) {
+      for (const leftItem of leftItems) {
+        for (const rightItem of rightItems) {
+          result.push(getResultItem(leftItem, rightItem));
+        }
+      }
     } else if (alwaysIncludeLeftItems) {
-      const leftItems = leftMap.get(key);
-      leftItems!.forEach((leftItem) =>
-        result.push(getResultItem(leftItem, undefined))
-      );
+      for (const leftItem of leftItems) {
+        result.push(getResultItem(leftItem, undefined));
+      }
     }
   }
 
   if (alwaysIncludeRightItems) {
-    for (const key of rightMap.keys()) {
+    for (const [key, rightItems] of rightMap) {
       if (!leftMap.has(key)) {
-        const rightItems = rightMap.get(key);
-        rightItems!.forEach((rightItem) =>
-          result.push(getResultItem(undefined, rightItem))
-        );
+        for (const rightItem of rightItems) {
+          result.push(getResultItem(undefined, rightItem));
+        }
       }
     }
   }

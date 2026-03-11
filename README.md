@@ -2,18 +2,10 @@
 
 Join two iterables (e.g. arrays) of objects by a common (user-defined) key, similarly to how SQL JOIN, LEFT JOIN and FULL JOIN work.
 
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
 ## Installation
 
 ```sh
 npm install array-join
-```
-
-or
-
-```sh
-yarn add array-join
 ```
 
 ## Usage
@@ -141,13 +133,18 @@ will include non-matching items from both collections
   {
     left: { id: 3, name: 'Alice' },
     right: undefined
-  }
+  },
   {
     left: undefined,
-    right:{ personId: 4, address: { city: 'London', country: 'UK' } }
+    right: { personId: 4, address: { city: 'London', country: 'UK' } }
   }
 ]
 ```
+
+## Breaking changes in version 4
+
+- ESM-only package (CommonJS is no longer supported)
+- Minimum Node.js version is 22
 
 ## Breaking changes in version 3
 

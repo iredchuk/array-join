@@ -1,6 +1,6 @@
-import assert from "node:assert/strict";
+import * as assert from "node:assert/strict";
 import { describe, test } from "node:test";
-import { fullJoin, join, leftJoin } from "../src/index";
+import { fullJoin, join, leftJoin } from "../src/index.js";
 
 interface LeftItem {
   id: number;

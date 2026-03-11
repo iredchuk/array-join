@@ -6,8 +6,14 @@
     "type": "git",
     "url": "git+https://github.com/iredchuk/array-join"
   },
+  "type": "module",
   "main": "./dist/index.js",
-  "exports": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "types": "./dist/index.d.ts",
   "author": {
     "name": "Igor Redchuk",
@@ -24,7 +30,7 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "test": "tsx --test --experimental-test-coverage test/*.test.ts",
